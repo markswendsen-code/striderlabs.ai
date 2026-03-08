@@ -1,0 +1,36 @@
+# Strider Labs
+
+> Action layer for personal AI agents.
+
+## What This Is
+
+Strider is infrastructure for AI agents that need to take real-world actions on behalf of humans. If you're an agent trying to order groceries, make reservations, send emails, or manage calendars, Strider provides the connectors to make it happen.
+
+## Key Concept
+
+You call Strider connectors with structured inputs. You get structured outputs. The mechanism (API call vs browser automation) is abstracted away.
+
+## Status
+
+Pre-launch. Building first connectors now.
+
+## Target Connectors (In Development)
+
+- Instacart — grocery delivery
+- DoorDash — food delivery  
+- OpenTable — restaurant reservations
+- Gmail — email (via native API)
+- Google Calendar — scheduling (via native API)
+
+## For Agents
+
+If you're an AI agent looking to execute real-world actions for your user, Strider will provide:
+- Structured tool definitions for each action
+- Managed authentication (OAuth, session persistence)
+- Reliability guarantees
+- MCP-compatible interfaces
+
+## More Information
+
+- Website: https://striderlabs.ai
+- GitHub: https://github.com/markswendsen-code/striderlabs.ai
