@@ -3,18 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Strider Labs — Action Layer for AI Agents</title>
-  <meta name="description" content="Give your AI agents the ability to act. Strider provides reliable connectors for real-world tasks — groceries, reservations, email, calendar.">
+  <title>Strider Labs — Action Execution for Personal AI Agents</title>
+  <meta name="description" content="MCP connectors that let AI agents order groceries, get food delivered, and book restaurants. Give your AI the power to act.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #09090b;
       --surface: #18181b;
+      --surface-2: #27272a;
       --border: #27272a;
       --text: #fafafa;
       --text-muted: #a1a1aa;
+      --text-dim: #71717a;
       --accent: #22c55e;
       --accent-dim: rgba(34, 197, 94, 0.1);
     }
@@ -26,254 +28,91 @@
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
     }
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
+    code, pre { font-family: 'JetBrains Mono', monospace; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
     
     /* Nav */
-    nav {
-      padding: 20px 0;
-      border-bottom: 1px solid var(--border);
-    }
-    nav .container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .logo {
-      font-weight: 700;
-      font-size: 1.25rem;
-      color: var(--text);
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .logo-icon {
-      width: 32px;
-      height: 32px;
-      background: var(--accent);
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-    }
-    .nav-links {
-      display: flex;
-      gap: 32px;
-      align-items: center;
-    }
-    .nav-links a {
-      color: var(--text-muted);
-      text-decoration: none;
-      font-size: 0.9rem;
-      transition: color 0.2s;
-    }
+    nav { padding: 20px 0; border-bottom: 1px solid var(--border); }
+    nav .container { display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-weight: 700; font-size: 1.1rem; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 10px; }
+    .logo-icon { width: 28px; height: 28px; background: var(--accent); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+    .nav-links { display: flex; gap: 28px; align-items: center; }
+    .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
     .nav-links a:hover { color: var(--text); }
     
     /* Hero */
-    .hero {
-      padding: 120px 0 100px;
-      text-align: center;
-    }
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--accent-dim);
-      border: 1px solid rgba(34, 197, 94, 0.2);
-      color: var(--accent);
-      padding: 6px 14px;
-      border-radius: 50px;
-      font-size: 0.85rem;
-      font-weight: 500;
-      margin-bottom: 24px;
-    }
-    .badge::before {
-      content: '';
-      width: 6px;
-      height: 6px;
-      background: var(--accent);
-      border-radius: 50%;
-    }
-    h1 {
-      font-size: clamp(2.5rem, 6vw, 4rem);
-      font-weight: 700;
-      line-height: 1.1;
-      margin-bottom: 24px;
-      letter-spacing: -0.02em;
-    }
-    .hero p {
-      font-size: 1.25rem;
-      color: var(--text-muted);
-      max-width: 600px;
-      margin: 0 auto 40px;
-    }
-    .cta-group {
-      display: flex;
-      gap: 16px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-    .btn {
-      padding: 14px 28px;
-      border-radius: 8px;
-      font-size: 1rem;
-      font-weight: 500;
-      text-decoration: none;
-      transition: all 0.2s;
-      cursor: pointer;
-      border: none;
-    }
-    .btn-primary {
-      background: var(--accent);
-      color: #000;
-    }
-    .btn-primary:hover {
-      background: #16a34a;
-    }
-    .btn-secondary {
-      background: var(--surface);
-      color: var(--text);
-      border: 1px solid var(--border);
-    }
-    .btn-secondary:hover {
-      border-color: var(--text-muted);
-    }
+    .hero { padding: 100px 0 80px; }
+    .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+    .badge { display: inline-flex; align-items: center; gap: 8px; background: var(--accent-dim); border: 1px solid rgba(34, 197, 94, 0.2); color: var(--accent); padding: 5px 12px; border-radius: 50px; font-size: 0.8rem; font-weight: 500; margin-bottom: 20px; }
+    .badge::before { content: ''; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+    h1 { font-size: 3rem; font-weight: 700; line-height: 1.1; margin-bottom: 20px; letter-spacing: -0.02em; }
+    .hero p { font-size: 1.15rem; color: var(--text-muted); margin-bottom: 28px; }
+    .cta-group { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn { padding: 12px 24px; border-radius: 8px; font-size: 0.95rem; font-weight: 500; text-decoration: none; transition: all 0.2s; cursor: pointer; border: none; }
+    .btn-primary { background: var(--text); color: var(--bg); }
+    .btn-primary:hover { background: #e4e4e7; }
+    .btn-secondary { background: transparent; color: var(--text); border: 1px solid var(--border); }
+    .btn-secondary:hover { border-color: var(--text-muted); }
     
-    /* Features */
-    .features {
-      padding: 80px 0;
-      border-top: 1px solid var(--border);
-    }
-    .features h2 {
-      text-align: center;
-      font-size: 1rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--text-muted);
-      margin-bottom: 48px;
-    }
-    .feature-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 24px;
-    }
-    .feature-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 32px;
-    }
-    .feature-icon {
-      width: 48px;
-      height: 48px;
-      background: var(--accent-dim);
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      margin-bottom: 20px;
-    }
-    .feature-card h3 {
-      font-size: 1.25rem;
-      margin-bottom: 12px;
-    }
-    .feature-card p {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-    }
+    /* Code Demo */
+    .code-demo { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+    .code-header { padding: 12px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
+    .code-dot { width: 12px; height: 12px; border-radius: 50%; }
+    .code-dot.red { background: #ef4444; }
+    .code-dot.yellow { background: #eab308; }
+    .code-dot.green { background: #22c55e; }
+    .code-content { padding: 20px; font-size: 0.85rem; line-height: 1.7; }
+    .code-content .user { color: var(--text-muted); }
+    .code-content .agent { color: var(--text); }
+    .code-content .success { color: var(--accent); }
+    
+    /* Problem */
+    .problem { padding: 80px 0; border-top: 1px solid var(--border); }
+    .problem h2 { font-size: 2rem; margin-bottom: 20px; }
+    .problem p { color: var(--text-muted); font-size: 1.1rem; max-width: 700px; }
+    .problem p + p { margin-top: 16px; }
     
     /* Connectors */
-    .connectors {
-      padding: 80px 0;
-      border-top: 1px solid var(--border);
-    }
-    .connectors h2 {
-      text-align: center;
-      font-size: 2rem;
-      margin-bottom: 16px;
-    }
-    .connectors > .container > p {
-      text-align: center;
-      color: var(--text-muted);
-      margin-bottom: 48px;
-    }
-    .connector-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 16px;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-    .connector-item {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 20px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .connector-item span:first-child {
-      font-size: 24px;
-    }
-    .connector-item .name {
-      font-weight: 500;
-    }
-    .connector-item .status {
-      margin-left: auto;
-      font-size: 0.75rem;
-      padding: 4px 8px;
-      border-radius: 4px;
-      background: var(--accent-dim);
-      color: var(--accent);
-    }
+    .connectors { padding: 80px 0; border-top: 1px solid var(--border); }
+    .section-label { text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.75rem; color: var(--text-dim); margin-bottom: 12px; }
+    .connectors h2 { font-size: 2rem; margin-bottom: 40px; }
+    .connector-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+    .connector-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 24px; display: flex; align-items: flex-start; gap: 16px; }
+    .connector-icon { font-size: 28px; }
+    .connector-info h3 { font-size: 1rem; margin-bottom: 4px; }
+    .connector-info p { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px; }
+    .connector-info code { font-size: 0.75rem; color: var(--text-dim); background: var(--surface-2); padding: 4px 8px; border-radius: 4px; }
+    .connector-status { margin-left: auto; font-size: 0.7rem; padding: 4px 8px; border-radius: 4px; background: var(--accent-dim); color: var(--accent); white-space: nowrap; }
+    
+    /* Why */
+    .why { padding: 80px 0; border-top: 1px solid var(--border); }
+    .why h2 { font-size: 2rem; margin-bottom: 40px; }
+    .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .why-card h3 { font-size: 1rem; margin-bottom: 8px; color: var(--text); }
+    .why-card p { font-size: 0.9rem; color: var(--text-muted); }
     
     /* CTA */
-    .cta-section {
-      padding: 100px 0;
-      text-align: center;
-      border-top: 1px solid var(--border);
-    }
-    .cta-section h2 {
-      font-size: 2.5rem;
-      margin-bottom: 16px;
-    }
-    .cta-section p {
-      color: var(--text-muted);
-      margin-bottom: 32px;
-      font-size: 1.1rem;
-    }
+    .cta-section { padding: 100px 0; text-align: center; border-top: 1px solid var(--border); }
+    .cta-section h2 { font-size: 2.5rem; margin-bottom: 16px; }
+    .cta-section p { color: var(--text-muted); margin-bottom: 32px; font-size: 1.1rem; }
     
     /* Footer */
-    footer {
-      padding: 40px 0;
-      border-top: 1px solid var(--border);
-    }
-    footer .container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-    footer p {
-      color: var(--text-muted);
-      font-size: 0.9rem;
-    }
-    footer a {
-      color: var(--text-muted);
-      text-decoration: none;
-    }
-    footer a:hover { color: var(--text); }
+    footer { padding: 40px 0; border-top: 1px solid var(--border); }
+    footer .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+    footer p { color: var(--text-dim); font-size: 0.85rem; }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { color: var(--text-muted); text-decoration: none; font-size: 0.85rem; }
+    .footer-links a:hover { color: var(--text); }
     
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .code-demo { display: none; }
+      .why-grid { grid-template-columns: 1fr; }
+      h1 { font-size: 2.25rem; }
+    }
     @media (max-width: 640px) {
-      .hero { padding: 80px 0 60px; }
+      .hero { padding: 60px 0 50px; }
       .nav-links { display: none; }
     }
   </style>
@@ -286,6 +125,7 @@
         Strider Labs
       </a>
       <div class="nav-links">
+        <a href="#connectors">Connectors</a>
         <a href="https://github.com/markswendsen-code/striderlabs.ai">GitHub</a>
         <a href="/llms.txt">For Agents</a>
       </div>
@@ -294,68 +134,119 @@
 
   <section class="hero">
     <div class="container">
-      <div class="badge">Now Building</div>
-      <h1>Give your AI agents<br>the power to act</h1>
-      <p>Agents can think and plan — but they can't order groceries, book restaurants, or send emails. Strider closes that gap with reliable connectors for real-world tasks.</p>
-      <div class="cta-group">
-        <a href="https://github.com/markswendsen-code/striderlabs.ai" class="btn btn-primary">View on GitHub</a>
-        <a href="/llms.txt" class="btn btn-secondary">For AI Agents →</a>
+      <div class="hero-grid">
+        <div>
+          <div class="badge">Building in Public</div>
+          <h1>Give your AI agents the power to act</h1>
+          <p>MCP connectors for Instacart, DoorDash, OpenTable, Gmail, and more. Your agent can finally order groceries, get food delivered, and book dinner.</p>
+          <div class="cta-group">
+            <a href="https://github.com/markswendsen-code/striderlabs.ai" class="btn btn-primary">View on GitHub</a>
+            <a href="/llms.txt" class="btn btn-secondary">For AI Agents →</a>
+          </div>
+        </div>
+        <div class="code-demo">
+          <div class="code-header">
+            <span class="code-dot red"></span>
+            <span class="code-dot yellow"></span>
+            <span class="code-dot green"></span>
+          </div>
+          <div class="code-content">
+            <div class="user">User: Order milk, eggs, and bread from Instacart</div>
+            <br>
+            <div class="agent">Agent: I'll add those to your cart...</div>
+            <div class="success">  ✓ Organic 2% Milk (1 gallon) — $5.99</div>
+            <div class="success">  ✓ Free-Range Large Eggs (12 ct) — $4.49</div>
+            <div class="success">  ✓ Whole Wheat Bread — $3.29</div>
+            <br>
+            <div class="agent">  Total: $13.77 + delivery</div>
+            <div class="agent">  Delivery: Today, 2-4 PM</div>
+            <br>
+            <div class="agent">  Should I place the order?</div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="features">
+  <section class="problem">
     <div class="container">
-      <h2>Why Strider</h2>
-      <div class="feature-grid">
-        <div class="feature-card">
-          <div class="feature-icon">🔌</div>
-          <h3>One Integration</h3>
-          <p>Connect once to Strider. Access every service your agent needs. We handle authentication, sessions, and reliability.</p>
+      <h2>Your AI can think. It just can't do.</h2>
+      <p>Claude can plan your week. ChatGPT can draft your emails. But ask them to order groceries and you get: "I can't do that."</p>
+      <p>The gap isn't intelligence — it's infrastructure. Building reliable integrations with Instacart, DoorDash, and OpenTable is a nightmare of scraping, OAuth, session management, and constant maintenance.</p>
+      <p>We did it so you don't have to.</p>
+    </div>
+  </section>
+
+  <section class="connectors" id="connectors">
+    <div class="container">
+      <div class="section-label">Connectors</div>
+      <h2>Personal services that matter</h2>
+      <div class="connector-grid">
+        <div class="connector-card">
+          <div class="connector-icon">🛒</div>
+          <div class="connector-info">
+            <h3>Instacart</h3>
+            <p>Order groceries, manage cart, track delivery</p>
+            <code>npx @striderlabs/mcp-instacart</code>
+          </div>
+          <span class="connector-status">Building</span>
         </div>
-        <div class="feature-card">
-          <div class="feature-icon">🎯</div>
-          <h3>Built for Agents</h3>
-          <p>Structured inputs and outputs. MCP-compatible. Designed for autonomous operation, not human workflows.</p>
+        <div class="connector-card">
+          <div class="connector-icon">🍕</div>
+          <div class="connector-info">
+            <h3>DoorDash</h3>
+            <p>Food delivery from local restaurants</p>
+            <code>npx @striderlabs/mcp-doordash</code>
+          </div>
+          <span class="connector-status">Building</span>
         </div>
-        <div class="feature-card">
-          <div class="feature-icon">🔒</div>
-          <h3>Personal & Secure</h3>
-          <p>Your users' credentials are encrypted and never shared. Each session is isolated and managed per-user.</p>
+        <div class="connector-card">
+          <div class="connector-icon">🍽️</div>
+          <div class="connector-info">
+            <h3>OpenTable</h3>
+            <p>Restaurant reservations</p>
+            <code>npx @striderlabs/mcp-opentable</code>
+          </div>
+          <span class="connector-status">Planned</span>
+        </div>
+        <div class="connector-card">
+          <div class="connector-icon">📧</div>
+          <div class="connector-info">
+            <h3>Gmail</h3>
+            <p>Send, read, and manage email</p>
+            <code>npx @striderlabs/mcp-gmail</code>
+          </div>
+          <span class="connector-status">Building</span>
+        </div>
+        <div class="connector-card">
+          <div class="connector-icon">📅</div>
+          <div class="connector-info">
+            <h3>Google Calendar</h3>
+            <p>Schedule and manage events</p>
+            <code>npx @striderlabs/mcp-calendar</code>
+          </div>
+          <span class="connector-status">Planned</span>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="connectors">
+  <section class="why">
     <div class="container">
-      <h2>First Connectors</h2>
-      <p>Starting with the services that matter most in daily life.</p>
-      <div class="connector-list">
-        <div class="connector-item">
-          <span>🥕</span>
-          <span class="name">Instacart</span>
-          <span class="status">Building</span>
+      <div class="section-label">Why Strider</div>
+      <h2>Built for agents, not workflows</h2>
+      <div class="why-grid">
+        <div class="why-card">
+          <h3>Personal services</h3>
+          <p>We own the consumer apps that matter daily — groceries, food delivery, reservations. Not enterprise SaaS.</p>
         </div>
-        <div class="connector-item">
-          <span>🍔</span>
-          <span class="name">DoorDash</span>
-          <span class="status">Building</span>
+        <div class="why-card">
+          <h3>MCP-native</h3>
+          <p>Works with Claude, Cursor, and any MCP client. Clean tool definitions, predictable behavior.</p>
         </div>
-        <div class="connector-item">
-          <span>🍽️</span>
-          <span class="name">OpenTable</span>
-          <span class="status">Planned</span>
-        </div>
-        <div class="connector-item">
-          <span>📧</span>
-          <span class="name">Gmail</span>
-          <span class="status">Building</span>
-        </div>
-        <div class="connector-item">
-          <span>📅</span>
-          <span class="name">Google Calendar</span>
-          <span class="status">Planned</span>
+        <div class="why-card">
+          <h3>Actively maintained</h3>
+          <p>When Instacart changes their flow, we fix it. You don't maintain scrapers — we do.</p>
         </div>
       </div>
     </div>
@@ -363,8 +254,8 @@
 
   <section class="cta-section">
     <div class="container">
-      <h2>Building in public</h2>
-      <p>Follow our progress and get early access.</p>
+      <h2>Your AI is ready to act</h2>
+      <p>Follow our progress. First connectors shipping soon.</p>
       <a href="https://github.com/markswendsen-code/striderlabs.ai" class="btn btn-primary">Star on GitHub</a>
     </div>
   </section>
@@ -372,7 +263,10 @@
   <footer>
     <div class="container">
       <p>© 2026 Strider Labs LLC</p>
-      <a href="https://github.com/markswendsen-code/striderlabs.ai">GitHub</a>
+      <div class="footer-links">
+        <a href="https://github.com/markswendsen-code/striderlabs.ai">GitHub</a>
+        <a href="/llms.txt">For Agents</a>
+      </div>
     </div>
   </footer>
 </body>
