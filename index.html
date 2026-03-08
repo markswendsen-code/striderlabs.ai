@@ -3,55 +3,377 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Strider Labs — Action Layer for Personal AI Agents</title>
-  <meta name="description" content="Strider makes personal AI agents actually useful. Execute real-world actions — groceries, reservations, email — through one integration.">
+  <title>Strider Labs — Action Layer for AI Agents</title>
+  <meta name="description" content="Give your AI agents the ability to act. Strider provides reliable connectors for real-world tasks — groceries, reservations, email, calendar.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --bg: #09090b;
+      --surface: #18181b;
+      --border: #27272a;
+      --text: #fafafa;
+      --text-muted: #a1a1aa;
+      --accent: #22c55e;
+      --accent-dim: rgba(34, 197, 94, 0.1);
+    }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-      background: #0a0a0a;
-      color: #e0e0e0;
-      min-height: 100vh;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    
+    /* Nav */
+    nav {
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    nav .container {
       display: flex;
-      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: var(--text);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: var(--accent);
+      border-radius: 8px;
+      display: flex;
       align-items: center;
       justify-content: center;
-      padding: 2rem;
+      font-size: 18px;
     }
-    .container { max-width: 600px; text-align: center; }
-    .logo { font-size: 3rem; margin-bottom: 1rem; }
-    h1 { font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem; color: #fff; }
-    .tagline { font-size: 1.25rem; color: #888; margin-bottom: 2rem; }
-    .description { font-size: 1.1rem; line-height: 1.7; color: #aaa; margin-bottom: 2rem; }
-    .status {
-      display: inline-block;
-      background: #1a1a2e;
-      border: 1px solid #333;
-      padding: 0.75rem 1.5rem;
-      border-radius: 2rem;
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
       font-size: 0.9rem;
-      color: #888;
+      transition: color 0.2s;
     }
-    .status span { color: #4ade80; }
-    footer { margin-top: 4rem; color: #444; font-size: 0.85rem; }
-    a { color: #888; }
+    .nav-links a:hover { color: var(--text); }
+    
+    /* Hero */
+    .hero {
+      padding: 120px 0 100px;
+      text-align: center;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent-dim);
+      border: 1px solid rgba(34, 197, 94, 0.2);
+      color: var(--accent);
+      padding: 6px 14px;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 24px;
+    }
+    .badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+    h1 {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 24px;
+      letter-spacing: -0.02em;
+    }
+    .hero p {
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto 40px;
+    }
+    .cta-group {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn {
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #000;
+    }
+    .btn-primary:hover {
+      background: #16a34a;
+    }
+    .btn-secondary {
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover {
+      border-color: var(--text-muted);
+    }
+    
+    /* Features */
+    .features {
+      padding: 80px 0;
+      border-top: 1px solid var(--border);
+    }
+    .features h2 {
+      text-align: center;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 48px;
+    }
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+    .feature-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px;
+    }
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--accent-dim);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    .feature-card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 12px;
+    }
+    .feature-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+    
+    /* Connectors */
+    .connectors {
+      padding: 80px 0;
+      border-top: 1px solid var(--border);
+    }
+    .connectors h2 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 16px;
+    }
+    .connectors > .container > p {
+      text-align: center;
+      color: var(--text-muted);
+      margin-bottom: 48px;
+    }
+    .connector-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .connector-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .connector-item span:first-child {
+      font-size: 24px;
+    }
+    .connector-item .name {
+      font-weight: 500;
+    }
+    .connector-item .status {
+      margin-left: auto;
+      font-size: 0.75rem;
+      padding: 4px 8px;
+      border-radius: 4px;
+      background: var(--accent-dim);
+      color: var(--accent);
+    }
+    
+    /* CTA */
+    .cta-section {
+      padding: 100px 0;
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+    .cta-section h2 {
+      font-size: 2.5rem;
+      margin-bottom: 16px;
+    }
+    .cta-section p {
+      color: var(--text-muted);
+      margin-bottom: 32px;
+      font-size: 1.1rem;
+    }
+    
+    /* Footer */
+    footer {
+      padding: 40px 0;
+      border-top: 1px solid var(--border);
+    }
+    footer .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    footer p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+    footer a {
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+    footer a:hover { color: var(--text); }
+    
+    @media (max-width: 640px) {
+      .hero { padding: 80px 0 60px; }
+      .nav-links { display: none; }
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="logo">🗡️</div>
-    <h1>Strider Labs</h1>
-    <p class="tagline">Action layer for personal AI agents</p>
-    <p class="description">
-      Your AI agent can think and plan — but it can't order groceries, make reservations, or send emails. Strider closes that gap. One integration. Every action your agent needs. Just works.
-    </p>
-    <div class="status">
-      <span>●</span> Building in the open — launching soon
+  <nav>
+    <div class="container">
+      <a href="/" class="logo">
+        <div class="logo-icon">🗡️</div>
+        Strider Labs
+      </a>
+      <div class="nav-links">
+        <a href="https://github.com/markswendsen-code/striderlabs.ai">GitHub</a>
+        <a href="/llms.txt">For Agents</a>
+      </div>
     </div>
-  </div>
+  </nav>
+
+  <section class="hero">
+    <div class="container">
+      <div class="badge">Now Building</div>
+      <h1>Give your AI agents<br>the power to act</h1>
+      <p>Agents can think and plan — but they can't order groceries, book restaurants, or send emails. Strider closes that gap with reliable connectors for real-world tasks.</p>
+      <div class="cta-group">
+        <a href="https://github.com/markswendsen-code/striderlabs.ai" class="btn btn-primary">View on GitHub</a>
+        <a href="/llms.txt" class="btn btn-secondary">For AI Agents →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="container">
+      <h2>Why Strider</h2>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🔌</div>
+          <h3>One Integration</h3>
+          <p>Connect once to Strider. Access every service your agent needs. We handle authentication, sessions, and reliability.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🎯</div>
+          <h3>Built for Agents</h3>
+          <p>Structured inputs and outputs. MCP-compatible. Designed for autonomous operation, not human workflows.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔒</div>
+          <h3>Personal & Secure</h3>
+          <p>Your users' credentials are encrypted and never shared. Each session is isolated and managed per-user.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="connectors">
+    <div class="container">
+      <h2>First Connectors</h2>
+      <p>Starting with the services that matter most in daily life.</p>
+      <div class="connector-list">
+        <div class="connector-item">
+          <span>🥕</span>
+          <span class="name">Instacart</span>
+          <span class="status">Building</span>
+        </div>
+        <div class="connector-item">
+          <span>🍔</span>
+          <span class="name">DoorDash</span>
+          <span class="status">Building</span>
+        </div>
+        <div class="connector-item">
+          <span>🍽️</span>
+          <span class="name">OpenTable</span>
+          <span class="status">Planned</span>
+        </div>
+        <div class="connector-item">
+          <span>📧</span>
+          <span class="name">Gmail</span>
+          <span class="status">Building</span>
+        </div>
+        <div class="connector-item">
+          <span>📅</span>
+          <span class="name">Google Calendar</span>
+          <span class="status">Planned</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="container">
+      <h2>Building in public</h2>
+      <p>Follow our progress and get early access.</p>
+      <a href="https://github.com/markswendsen-code/striderlabs.ai" class="btn btn-primary">Star on GitHub</a>
+    </div>
+  </section>
+
   <footer>
-    <a href="https://github.com/markswendsen-code/striderlabs.ai">GitHub</a>
+    <div class="container">
+      <p>© 2026 Strider Labs LLC</p>
+      <a href="https://github.com/markswendsen-code/striderlabs.ai">GitHub</a>
+    </div>
   </footer>
 </body>
 </html>
-<!-- deployed Sun Mar  8 14:08:14 PDT 2026 -->
