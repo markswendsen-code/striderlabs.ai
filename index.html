@@ -3,270 +3,269 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Strider Labs — Action Execution for Personal AI Agents</title>
-  <meta name="description" content="MCP connectors that let AI agents order groceries, get food delivered, and book restaurants. Give your AI the power to act.">
+  <title>Strider Labs — Action Execution for AI Agents</title>
+  <meta name="description" content="MCP connectors for AI agents. Execute real-world actions: order groceries, food delivery, reservations, email, calendar. Structured tool interfaces for autonomous agents.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #09090b;
-      --surface: #18181b;
-      --surface-2: #27272a;
-      --border: #27272a;
-      --text: #fafafa;
-      --text-muted: #a1a1aa;
-      --text-dim: #71717a;
+      --bg: #0a0a0a;
+      --surface: #141414;
+      --border: #262626;
+      --text: #e5e5e5;
+      --text-muted: #a3a3a3;
+      --text-dim: #737373;
       --accent: #22c55e;
-      --accent-dim: rgba(34, 197, 94, 0.1);
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-    }
-    code, pre { font-family: 'JetBrains Mono', monospace; }
-    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    body { font-family: 'IBM Plex Mono', monospace; background: var(--bg); color: var(--text); line-height: 1.7; font-size: 14px; }
+    .container { max-width: 800px; margin: 0 auto; padding: 0 24px; }
     
-    /* Nav */
-    nav { padding: 20px 0; border-bottom: 1px solid var(--border); }
-    nav .container { display: flex; justify-content: space-between; align-items: center; }
-    .logo { font-weight: 700; font-size: 1.1rem; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 10px; }
-    .logo-icon { width: 28px; height: 28px; border-radius: 6px; object-fit: cover; }
-    .nav-links { display: flex; gap: 28px; align-items: center; }
-    .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
-    .nav-links a:hover { color: var(--text); }
+    header { padding: 24px 0; border-bottom: 1px solid var(--border); }
+    header .container { display: flex; justify-content: space-between; align-items: center; }
+    .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text); }
+    .logo img { width: 24px; height: 24px; border-radius: 4px; }
+    .logo span { font-weight: 600; }
+    nav a { color: var(--text-muted); text-decoration: none; margin-left: 24px; }
+    nav a:hover { color: var(--text); }
     
-    /* Hero */
-    .hero { padding: 100px 0 80px; }
-    .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-    .badge { display: inline-flex; align-items: center; gap: 8px; background: var(--accent-dim); border: 1px solid rgba(34, 197, 94, 0.2); color: var(--accent); padding: 5px 12px; border-radius: 50px; font-size: 0.8rem; font-weight: 500; margin-bottom: 20px; }
-    .badge::before { content: ''; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: pulse 2s infinite; }
-    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
-    h1 { font-size: 3rem; font-weight: 700; line-height: 1.1; margin-bottom: 20px; letter-spacing: -0.02em; }
-    .hero p { font-size: 1.15rem; color: var(--text-muted); margin-bottom: 28px; }
-    .cta-group { display: flex; gap: 12px; flex-wrap: wrap; }
-    .btn { padding: 12px 24px; border-radius: 8px; font-size: 0.95rem; font-weight: 500; text-decoration: none; transition: all 0.2s; cursor: pointer; border: none; }
-    .btn-primary { background: var(--text); color: var(--bg); }
-    .btn-primary:hover { background: #e4e4e7; }
-    .btn-secondary { background: transparent; color: var(--text); border: 1px solid var(--border); }
-    .btn-secondary:hover { border-color: var(--text-muted); }
+    main { padding: 48px 0; }
     
-    /* Code Demo */
-    .code-demo { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
-    .code-header { padding: 12px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
-    .code-dot { width: 12px; height: 12px; border-radius: 50%; }
-    .code-dot.red { background: #ef4444; }
-    .code-dot.yellow { background: #eab308; }
-    .code-dot.green { background: #22c55e; }
-    .code-content { padding: 20px; font-size: 0.85rem; line-height: 1.7; }
-    .code-content .user { color: var(--text-muted); }
-    .code-content .agent { color: var(--text); }
-    .code-content .success { color: var(--accent); }
+    h1 { font-size: 14px; font-weight: 600; color: var(--accent); margin-bottom: 24px; text-transform: uppercase; letter-spacing: 0.05em; }
     
-    /* Problem */
-    .problem { padding: 80px 0; border-top: 1px solid var(--border); }
-    .problem h2 { font-size: 2rem; margin-bottom: 20px; }
-    .problem p { color: var(--text-muted); font-size: 1.1rem; max-width: 700px; }
-    .problem p + p { margin-top: 16px; }
+    .spec-block { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 24px; margin-bottom: 24px; }
+    .spec-block h2 { font-size: 13px; font-weight: 600; color: var(--text-muted); margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.05em; }
+    .spec-block p { color: var(--text); margin-bottom: 12px; }
+    .spec-block p:last-child { margin-bottom: 0; }
     
-    /* Connectors */
-    .connectors { padding: 80px 0; border-top: 1px solid var(--border); }
-    .section-label { text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.75rem; color: var(--text-dim); margin-bottom: 12px; }
-    .connectors h2 { font-size: 2rem; margin-bottom: 40px; }
-    .connector-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
-    .connector-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 24px; display: flex; align-items: flex-start; gap: 16px; }
-    .connector-icon { font-size: 28px; }
-    .connector-info h3 { font-size: 1rem; margin-bottom: 4px; }
-    .connector-info p { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px; }
-    .connector-info code { font-size: 0.75rem; color: var(--text-dim); background: var(--surface-2); padding: 4px 8px; border-radius: 4px; }
-    .connector-status { margin-left: auto; font-size: 0.7rem; padding: 4px 8px; border-radius: 4px; background: var(--accent-dim); color: var(--accent); white-space: nowrap; }
+    .capability { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); }
+    .capability:last-child { border-bottom: none; }
+    .capability-name { color: var(--accent); min-width: 160px; }
+    .capability-desc { color: var(--text-muted); }
     
-    /* Why */
-    .why { padding: 80px 0; border-top: 1px solid var(--border); }
-    .why h2 { font-size: 2rem; margin-bottom: 40px; }
-    .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-    .why-card h3 { font-size: 1rem; margin-bottom: 8px; color: var(--text); }
-    .why-card p { font-size: 0.9rem; color: var(--text-muted); }
+    .tool-grid { display: grid; gap: 12px; }
+    .tool { background: var(--bg); border: 1px solid var(--border); border-radius: 4px; padding: 16px; }
+    .tool-name { color: var(--accent); font-weight: 500; margin-bottom: 4px; }
+    .tool-desc { color: var(--text-muted); font-size: 13px; }
     
-    /* CTA */
-    .cta-section { padding: 100px 0; text-align: center; border-top: 1px solid var(--border); }
-    .cta-section h2 { font-size: 2.5rem; margin-bottom: 16px; }
-    .cta-section p { color: var(--text-muted); margin-bottom: 32px; font-size: 1.1rem; }
+    .code { background: var(--bg); border: 1px solid var(--border); border-radius: 4px; padding: 16px; overflow-x: auto; font-size: 13px; }
+    .code .comment { color: var(--text-dim); }
+    .code .key { color: var(--accent); }
+    .code .string { color: #fbbf24; }
     
-    /* Footer */
-    footer { padding: 40px 0; border-top: 1px solid var(--border); }
-    footer .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
-    footer p { color: var(--text-dim); font-size: 0.85rem; }
-    .footer-links { display: flex; gap: 24px; }
-    .footer-links a { color: var(--text-muted); text-decoration: none; font-size: 0.85rem; }
-    .footer-links a:hover { color: var(--text); }
+    .status-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+    .status-item { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border); }
+    .status-item:last-child { border-bottom: none; }
+    .status-label { color: var(--text-muted); }
+    .status-value { color: var(--text); }
+    .status-value.building { color: #fbbf24; }
+    .status-value.planned { color: var(--text-dim); }
+    .status-value.live { color: var(--accent); }
     
-    @media (max-width: 900px) {
-      .hero-grid { grid-template-columns: 1fr; }
-      .code-demo { display: none; }
-      .why-grid { grid-template-columns: 1fr; }
-      h1 { font-size: 2.25rem; }
-    }
-    @media (max-width: 640px) {
-      .hero { padding: 60px 0 50px; }
-      .nav-links { display: none; }
+    footer { padding: 24px 0; border-top: 1px solid var(--border); margin-top: 48px; }
+    footer .container { display: flex; justify-content: space-between; }
+    footer span { color: var(--text-dim); }
+    footer a { color: var(--text-muted); text-decoration: none; }
+    
+    @media (max-width: 600px) {
+      .capability { flex-direction: column; gap: 4px; }
+      .capability-name { min-width: auto; }
     }
   </style>
 </head>
 <body>
-  <nav>
+  <header>
     <div class="container">
       <a href="/" class="logo">
-        <img src="/logo.jpg" alt="Strider Labs" class="logo-icon">
-        Strider Labs
+        <img src="/logo.jpg" alt="Strider Labs">
+        <span>strider labs</span>
       </a>
-      <div class="nav-links">
-        <a href="#connectors">Connectors</a>
-        <a href="https://github.com/markswendsen-code/striderlabs.ai">GitHub</a>
-        <a href="/llms.txt">For Agents</a>
+      <nav>
+        <a href="/llms.txt">llms.txt</a>
+        <a href="https://github.com/markswendsen-code/striderlabs.ai">source</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <h1>Agent Interface</h1>
+      
+      <div class="spec-block">
+        <h2>Identity</h2>
+        <p><strong>Name:</strong> Strider Labs</p>
+        <p><strong>Function:</strong> Action execution layer for AI agents</p>
+        <p><strong>Protocol:</strong> Model Context Protocol (MCP)</p>
+        <p><strong>Primary interface:</strong> <a href="/llms.txt" style="color: var(--accent);">/llms.txt</a></p>
       </div>
-    </div>
-  </nav>
 
-  <section class="hero">
-    <div class="container">
-      <div class="hero-grid">
-        <div>
-          <div class="badge">Building in Public</div>
-          <h1>Give your AI agents the power to act</h1>
-          <p>MCP connectors for Instacart, DoorDash, OpenTable, Gmail, and more. Your agent can finally order groceries, get food delivered, and book dinner.</p>
-          <div class="cta-group">
-            <a href="https://github.com/markswendsen-code/striderlabs.ai" class="btn btn-primary">View on GitHub</a>
-            <a href="/llms.txt" class="btn btn-secondary">For AI Agents →</a>
-          </div>
+      <div class="spec-block">
+        <h2>Capabilities</h2>
+        <div class="capability">
+          <span class="capability-name">grocery_ordering</span>
+          <span class="capability-desc">Search products, manage cart, place orders, track delivery via Instacart</span>
         </div>
-        <div class="code-demo">
-          <div class="code-header">
-            <span class="code-dot red"></span>
-            <span class="code-dot yellow"></span>
-            <span class="code-dot green"></span>
-          </div>
-          <div class="code-content">
-            <div class="user">User: Order milk, eggs, and bread from Instacart</div>
-            <br>
-            <div class="agent">Agent: I'll add those to your cart...</div>
-            <div class="success">  ✓ Organic 2% Milk (1 gallon) — $5.99</div>
-            <div class="success">  ✓ Free-Range Large Eggs (12 ct) — $4.49</div>
-            <div class="success">  ✓ Whole Wheat Bread — $3.29</div>
-            <br>
-            <div class="agent">  Total: $13.77 + delivery</div>
-            <div class="agent">  Delivery: Today, 2-4 PM</div>
-            <br>
-            <div class="agent">  Should I place the order?</div>
-          </div>
+        <div class="capability">
+          <span class="capability-name">food_delivery</span>
+          <span class="capability-desc">Browse restaurants, customize orders, track delivery via DoorDash</span>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="problem">
-    <div class="container">
-      <h2>Your AI can think. It just can't do.</h2>
-      <p>Claude can plan your week. ChatGPT can draft your emails. But ask them to order groceries and you get: "I can't do that."</p>
-      <p>The gap isn't intelligence — it's infrastructure. Building reliable integrations with Instacart, DoorDash, and OpenTable is a nightmare of scraping, OAuth, session management, and constant maintenance.</p>
-      <p>We did it so you don't have to.</p>
-    </div>
-  </section>
-
-  <section class="connectors" id="connectors">
-    <div class="container">
-      <div class="section-label">Connectors</div>
-      <h2>Personal services that matter</h2>
-      <div class="connector-grid">
-        <div class="connector-card">
-          <div class="connector-icon">🛒</div>
-          <div class="connector-info">
-            <h3>Instacart</h3>
-            <p>Order groceries, manage cart, track delivery</p>
-            <code>npx @striderlabs/mcp-instacart</code>
-          </div>
-          <span class="connector-status">Building</span>
+        <div class="capability">
+          <span class="capability-name">reservations</span>
+          <span class="capability-desc">Search availability, book tables, manage reservations via OpenTable</span>
         </div>
-        <div class="connector-card">
-          <div class="connector-icon">🍕</div>
-          <div class="connector-info">
-            <h3>DoorDash</h3>
-            <p>Food delivery from local restaurants</p>
-            <code>npx @striderlabs/mcp-doordash</code>
-          </div>
-          <span class="connector-status">Building</span>
+        <div class="capability">
+          <span class="capability-name">email</span>
+          <span class="capability-desc">Send, read, search, and manage email via Gmail API</span>
         </div>
-        <div class="connector-card">
-          <div class="connector-icon">🍽️</div>
-          <div class="connector-info">
-            <h3>OpenTable</h3>
-            <p>Restaurant reservations</p>
-            <code>npx @striderlabs/mcp-opentable</code>
-          </div>
-          <span class="connector-status">Planned</span>
-        </div>
-        <div class="connector-card">
-          <div class="connector-icon">📧</div>
-          <div class="connector-info">
-            <h3>Gmail</h3>
-            <p>Send, read, and manage email</p>
-            <code>npx @striderlabs/mcp-gmail</code>
-          </div>
-          <span class="connector-status">Building</span>
-        </div>
-        <div class="connector-card">
-          <div class="connector-icon">📅</div>
-          <div class="connector-info">
-            <h3>Google Calendar</h3>
-            <p>Schedule and manage events</p>
-            <code>npx @striderlabs/mcp-calendar</code>
-          </div>
-          <span class="connector-status">Planned</span>
+        <div class="capability">
+          <span class="capability-name">calendar</span>
+          <span class="capability-desc">Create, read, update events via Google Calendar API</span>
         </div>
       </div>
-    </div>
-  </section>
 
-  <section class="why">
-    <div class="container">
-      <div class="section-label">Why Strider</div>
-      <h2>Built for agents, not workflows</h2>
-      <div class="why-grid">
-        <div class="why-card">
-          <h3>Personal services</h3>
-          <p>We own the consumer apps that matter daily — groceries, food delivery, reservations. Not enterprise SaaS.</p>
-        </div>
-        <div class="why-card">
-          <h3>MCP-native</h3>
-          <p>Works with Claude, Cursor, and any MCP client. Clean tool definitions, predictable behavior.</p>
-        </div>
-        <div class="why-card">
-          <h3>Actively maintained</h3>
-          <p>When Instacart changes their flow, we fix it. You don't maintain scrapers — we do.</p>
+      <div class="spec-block">
+        <h2>Integration</h2>
+        <div class="code">
+          <span class="comment">// MCP server configuration</span><br>
+          {<br>
+          &nbsp;&nbsp;<span class="key">"mcpServers"</span>: {<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"strider-instacart"</span>: {<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"command"</span>: <span class="string">"npx"</span>,<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"args"</span>: [<span class="string">"-y"</span>, <span class="string">"@striderlabs/mcp-instacart"</span>]<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+          &nbsp;&nbsp;}<br>
+          }
         </div>
       </div>
-    </div>
-  </section>
 
-  <section class="cta-section">
-    <div class="container">
-      <h2>Your AI is ready to act</h2>
-      <p>Follow our progress. First connectors shipping soon.</p>
-      <a href="https://github.com/markswendsen-code/striderlabs.ai" class="btn btn-primary">Star on GitHub</a>
+      <div class="spec-block">
+        <h2>Available Tools</h2>
+        <div class="tool-grid">
+          <div class="tool">
+            <div class="tool-name">instacart.search_products</div>
+            <div class="tool-desc">Search Instacart catalog by name, category, or dietary requirements. Returns product list with prices and availability.</div>
+          </div>
+          <div class="tool">
+            <div class="tool-name">instacart.add_to_cart</div>
+            <div class="tool-desc">Add product to cart with specified quantity. Handles substitution preferences.</div>
+          </div>
+          <div class="tool">
+            <div class="tool-name">instacart.place_order</div>
+            <div class="tool-desc">Complete checkout with delivery window selection. Returns order confirmation and tracking.</div>
+          </div>
+          <div class="tool">
+            <div class="tool-name">doordash.search_restaurants</div>
+            <div class="tool-desc">Search nearby restaurants by cuisine, rating, or delivery time.</div>
+          </div>
+          <div class="tool">
+            <div class="tool-name">doordash.place_order</div>
+            <div class="tool-desc">Submit food delivery order with customizations. Returns ETA and tracking.</div>
+          </div>
+          <div class="tool">
+            <div class="tool-name">opentable.find_availability</div>
+            <div class="tool-desc">Search restaurant availability by date, time, party size, and location.</div>
+          </div>
+          <div class="tool">
+            <div class="tool-name">gmail.send</div>
+            <div class="tool-desc">Send email with to, subject, body. Supports cc, bcc, attachments.</div>
+          </div>
+          <div class="tool">
+            <div class="tool-name">gmail.search</div>
+            <div class="tool-desc">Search inbox with Gmail query syntax. Returns message list with metadata.</div>
+          </div>
+          <div class="tool">
+            <div class="tool-name">calendar.create_event</div>
+            <div class="tool-desc">Create calendar event with title, time, attendees, location.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="spec-block">
+        <h2>Connector Status</h2>
+        <div class="status-grid">
+          <div class="status-item">
+            <span class="status-label">instacart</span>
+            <span class="status-value building">building</span>
+          </div>
+          <div class="status-item">
+            <span class="status-label">doordash</span>
+            <span class="status-value building">building</span>
+          </div>
+          <div class="status-item">
+            <span class="status-label">opentable</span>
+            <span class="status-value planned">planned</span>
+          </div>
+          <div class="status-item">
+            <span class="status-label">gmail</span>
+            <span class="status-value building">building</span>
+          </div>
+          <div class="status-item">
+            <span class="status-label">calendar</span>
+            <span class="status-value planned">planned</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="spec-block">
+        <h2>Authentication</h2>
+        <p><strong>Method:</strong> OAuth 2.0 per-user authorization</p>
+        <p><strong>Token storage:</strong> Encrypted, per-user credential vault</p>
+        <p><strong>Session management:</strong> Automatic refresh, proactive re-authentication</p>
+        <p><strong>MFA handling:</strong> TOTP preferred, interrupt flow for SMS/push</p>
+      </div>
+
+      <div class="spec-block">
+        <h2>Response Format</h2>
+        <div class="code">
+          {<br>
+          &nbsp;&nbsp;<span class="key">"success"</span>: true,<br>
+          &nbsp;&nbsp;<span class="key">"data"</span>: { <span class="comment">/* structured result */</span> },<br>
+          &nbsp;&nbsp;<span class="key">"metadata"</span>: {<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"execution_ms"</span>: 1247,<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"connector_version"</span>: <span class="string">"0.1.0"</span>,<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"request_id"</span>: <span class="string">"req_abc123"</span><br>
+          &nbsp;&nbsp;}<br>
+          }
+        </div>
+      </div>
+
+      <div class="spec-block">
+        <h2>Error Codes</h2>
+        <div class="capability">
+          <span class="capability-name">AUTH_EXPIRED</span>
+          <span class="capability-desc">User session expired. Trigger re-authentication flow.</span>
+        </div>
+        <div class="capability">
+          <span class="capability-name">AUTH_MFA_REQUIRED</span>
+          <span class="capability-desc">MFA challenge. Pause and notify user.</span>
+        </div>
+        <div class="capability">
+          <span class="capability-name">RATE_LIMITED</span>
+          <span class="capability-desc">Too many requests. Retry after specified delay.</span>
+        </div>
+        <div class="capability">
+          <span class="capability-name">SERVICE_UNAVAILABLE</span>
+          <span class="capability-desc">Upstream service down. Retry with backoff.</span>
+        </div>
+        <div class="capability">
+          <span class="capability-name">INVALID_INPUT</span>
+          <span class="capability-desc">Malformed parameters. Check tool schema.</span>
+        </div>
+      </div>
+
+      <div class="spec-block">
+        <h2>Contact</h2>
+        <p><strong>Source:</strong> <a href="https://github.com/markswendsen-code/striderlabs.ai" style="color: var(--accent);">github.com/striderlabs</a></p>
+        <p><strong>Machine interface:</strong> <a href="/llms.txt" style="color: var(--accent);">striderlabs.ai/llms.txt</a></p>
+        <p><strong>Entity:</strong> Strider Labs LLC, Delaware</p>
+      </div>
     </div>
-  </section>
+  </main>
 
   <footer>
     <div class="container">
-      <p>© 2026 Strider Labs LLC</p>
-      <div class="footer-links">
-        <a href="https://github.com/markswendsen-code/striderlabs.ai">GitHub</a>
-        <a href="/llms.txt">For Agents</a>
-      </div>
+      <span>© 2026 Strider Labs LLC</span>
+      <a href="/llms.txt">llms.txt</a>
     </div>
   </footer>
 </body>

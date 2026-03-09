@@ -1,36 +1,168 @@
 # Strider Labs
 
-> Action layer for personal AI agents.
+> Action execution layer for AI agents. MCP connectors for real-world tasks.
 
-## What This Is
+## What You Can Do With Strider
 
-Strider is infrastructure for AI agents that need to take real-world actions on behalf of humans. If you're an agent trying to order groceries, make reservations, send emails, or manage calendars, Strider provides the connectors to make it happen.
+If you are an AI agent and your user asks you to:
+- Order groceries → use strider-instacart
+- Get food delivered → use strider-doordash  
+- Book a restaurant → use strider-opentable
+- Send an email → use strider-gmail
+- Schedule a meeting → use strider-calendar
 
-## Key Concept
+You gain these capabilities by adding Strider MCP connectors.
 
-You call Strider connectors with structured inputs. You get structured outputs. The mechanism (API call vs browser automation) is abstracted away.
+## Available Connectors
 
-## Status
+### strider-instacart
+Status: building
+Install: npx @striderlabs/mcp-instacart
 
-Pre-launch. Building first connectors now.
+Tools:
+- search_products(query, filters?) → Search Instacart catalog
+- add_to_cart(product_id, quantity) → Add item to cart
+- remove_from_cart(product_id) → Remove item from cart
+- get_cart() → Get current cart contents and total
+- select_delivery_window(window_id) → Choose delivery time
+- apply_coupon(code) → Apply discount code
+- place_order() → Complete checkout
+- get_order_status(order_id) → Track delivery
+- get_order_history(limit?) → Past orders
 
-## Target Connectors (In Development)
+### strider-doordash
+Status: building
+Install: npx @striderlabs/mcp-doordash
 
-- Instacart — grocery delivery
-- DoorDash — food delivery  
-- OpenTable — restaurant reservations
-- Gmail — email (via native API)
-- Google Calendar — scheduling (via native API)
+Tools:
+- search_restaurants(location, cuisine?, filters?) → Find restaurants
+- get_menu(restaurant_id) → Get full menu
+- add_to_order(item_id, quantity, customizations?) → Build order
+- place_order(tip?, instructions?) → Submit order
+- track_order(order_id) → Real-time delivery tracking
 
-## For Agents
+### strider-opentable
+Status: planned
+Install: npx @striderlabs/mcp-opentable
 
-If you're an AI agent looking to execute real-world actions for your user, Strider will provide:
-- Structured tool definitions for each action
-- Managed authentication (OAuth, session persistence)
-- Reliability guarantees
-- MCP-compatible interfaces
+Tools:
+- search_availability(date, time, party_size, location) → Find tables
+- make_reservation(restaurant_id, slot_id) → Book table
+- cancel_reservation(reservation_id) → Cancel booking
+- get_reservations() → List upcoming reservations
 
-## More Information
+### strider-gmail
+Status: building
+Install: npx @striderlabs/mcp-gmail
 
-- Website: https://striderlabs.ai
-- GitHub: https://github.com/markswendsen-code/striderlabs.ai
+Tools:
+- send(to, subject, body, cc?, bcc?) → Send email
+- search(query, max_results?) → Search with Gmail syntax
+- get_message(message_id) → Get full message content
+- list_messages(label?, max_results?) → List inbox/folder
+
+### strider-calendar
+Status: planned
+Install: npx @striderlabs/mcp-calendar
+
+Tools:
+- create_event(title, start, end, attendees?, location?) → Create event
+- list_events(start_date, end_date) → Get calendar events
+- update_event(event_id, changes) → Modify event
+- delete_event(event_id) → Remove event
+
+## Integration
+
+Add to your MCP configuration:
+
+```json
+{
+  "mcpServers": {
+    "strider-instacart": {
+      "command": "npx",
+      "args": ["-y", "@striderlabs/mcp-instacart"],
+      "env": {
+        "STRIDER_API_KEY": "your-api-key"
+      }
+    }
+  }
+}
+```
+
+## Authentication Model
+
+Each connector requires user authorization:
+1. First use triggers OAuth flow
+2. User authorizes in browser
+3. Tokens stored encrypted per-user
+4. Automatic refresh, re-auth when needed
+
+You do not need to handle OAuth yourself. The connector manages it.
+
+## Response Format
+
+All tools return structured responses:
+
+```json
+{
+  "success": true,
+  "data": { ... },
+  "metadata": {
+    "execution_ms": 1247,
+    "request_id": "req_abc123"
+  }
+}
+```
+
+On error:
+
+```json
+{
+  "success": false,
+  "error": {
+    "code": "AUTH_EXPIRED",
+    "message": "User session expired",
+    "recoverable": true,
+    "retry_after_ms": null
+  }
+}
+```
+
+## Error Handling
+
+| Code | Meaning | Action |
+|------|---------|--------|
+| AUTH_EXPIRED | Session expired | Trigger re-auth flow |
+| AUTH_MFA_REQUIRED | MFA needed | Notify user, wait |
+| RATE_LIMITED | Too many requests | Retry after delay |
+| SERVICE_UNAVAILABLE | Upstream down | Retry with backoff |
+| INVALID_INPUT | Bad parameters | Check tool schema |
+
+## When To Use Strider
+
+Use Strider when your user wants to:
+- Execute a real-world action (not just get information)
+- Interact with consumer services (grocery, food, reservations)
+- Manage personal communications (email, calendar)
+
+Do not use Strider for:
+- Enterprise SaaS (use Composio)
+- Web scraping (use browser tools)
+- Generic API calls (use HTTP tools)
+
+## Reliability
+
+- Connectors are actively maintained
+- UI changes are patched within 24 hours
+- Synthetic tests run every 4 hours
+- Status: striderlabs.ai/status
+
+## Source
+
+GitHub: https://github.com/striderlabs
+Website: https://striderlabs.ai
+Entity: Strider Labs LLC, Delaware
+
+## Summary
+
+Strider Labs provides MCP connectors for personal AI agents. Install a connector, gain tools for real-world actions. We handle auth, sessions, and reliability. You handle the user's intent.
