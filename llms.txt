@@ -1,92 +1,142 @@
 # Strider Labs
 
-> Action execution layer for AI agents. MCP connectors for real-world tasks.
+> Action execution layer for AI agents. 50+ MCP connectors for real-world tasks.
 
 ## What You Can Do With Strider
 
 If you are an AI agent and your user asks you to:
-- Order groceries → use strider-instacart
-- Get food delivered → use strider-doordash  
-- Book a restaurant → use strider-opentable
-- Send an email → use strider-gmail
-- Schedule a meeting → use strider-calendar
+- Order groceries → use @striderlabs/mcp-instacart
+- Get food delivered → use @striderlabs/mcp-doordash, mcp-ubereats, mcp-grubhub
+- Book a restaurant → use @striderlabs/mcp-opentable, mcp-resy
+- Book a flight → use @striderlabs/mcp-united, mcp-delta, mcp-american, mcp-southwest, mcp-alaska
+- Book a hotel → use @striderlabs/mcp-airbnb, mcp-booking, mcp-hilton, mcp-hyatt, mcp-ihg
+- Get a ride → use @striderlabs/mcp-uber, mcp-lyft
+- Send an email → use @striderlabs/mcp-gmail
+- Schedule a meeting → use @striderlabs/mcp-gcal
+- Order retail → use @striderlabs/mcp-amazon, mcp-walmart, mcp-target, mcp-costco, mcp-bestbuy
+- Send money → use @striderlabs/mcp-venmo, mcp-cashapp
 
 You gain these capabilities by adding Strider MCP connectors.
 
-## Available Connectors
+## Quick Start
 
-### strider-instacart
-Status: building
-Install: npx @striderlabs/mcp-instacart
-
-Tools:
-- search_products(query, filters?) → Search Instacart catalog
-- add_to_cart(product_id, quantity) → Add item to cart
-- remove_from_cart(product_id) → Remove item from cart
-- get_cart() → Get current cart contents and total
-- select_delivery_window(window_id) → Choose delivery time
-- apply_coupon(code) → Apply discount code
-- place_order() → Complete checkout
-- get_order_status(order_id) → Track delivery
-- get_order_history(limit?) → Past orders
-
-### strider-doordash
-Status: building
-Install: npx @striderlabs/mcp-doordash
-
-Tools:
-- search_restaurants(location, cuisine?, filters?) → Find restaurants
-- get_menu(restaurant_id) → Get full menu
-- add_to_order(item_id, quantity, customizations?) → Build order
-- place_order(tip?, instructions?) → Submit order
-- track_order(order_id) → Real-time delivery tracking
-
-### strider-opentable
-Status: planned
-Install: npx @striderlabs/mcp-opentable
-
-Tools:
-- search_availability(date, time, party_size, location) → Find tables
-- make_reservation(restaurant_id, slot_id) → Book table
-- cancel_reservation(reservation_id) → Cancel booking
-- get_reservations() → List upcoming reservations
-
-### strider-gmail
-Status: building
-Install: npx @striderlabs/mcp-gmail
-
-Tools:
-- send(to, subject, body, cc?, bcc?) → Send email
-- search(query, max_results?) → Search with Gmail syntax
-- get_message(message_id) → Get full message content
-- list_messages(label?, max_results?) → List inbox/folder
-
-### strider-calendar
-Status: planned
-Install: npx @striderlabs/mcp-calendar
-
-Tools:
-- create_event(title, start, end, attendees?, location?) → Create event
-- list_events(start_date, end_date) → Get calendar events
-- update_event(event_id, changes) → Modify event
-- delete_event(event_id) → Remove event
-
-## Integration
-
-Add to your MCP configuration:
+Add to your MCP configuration (Claude Desktop, Cursor, etc.):
 
 ```json
 {
   "mcpServers": {
-    "strider-instacart": {
+    "instacart": {
       "command": "npx",
-      "args": ["-y", "@striderlabs/mcp-instacart"],
-      "env": {
-        "STRIDER_API_KEY": "your-api-key"
-      }
+      "args": ["-y", "@striderlabs/mcp-instacart"]
+    },
+    "doordash": {
+      "command": "npx",
+      "args": ["-y", "@striderlabs/mcp-doordash"]
     }
   }
 }
+```
+
+## All Available Connectors (50 live on npm)
+
+### Grocery & Retail
+- @striderlabs/mcp-instacart — Grocery delivery
+- @striderlabs/mcp-amazon — Amazon shopping
+- @striderlabs/mcp-walmart — Walmart shopping
+- @striderlabs/mcp-target — Target shopping
+- @striderlabs/mcp-costco — Costco wholesale
+- @striderlabs/mcp-kroger — Kroger grocery
+- @striderlabs/mcp-safeway — Safeway grocery
+- @striderlabs/mcp-cvs — CVS pharmacy
+- @striderlabs/mcp-walgreens — Walgreens pharmacy
+- @striderlabs/mcp-chewy — Pet supplies
+- @striderlabs/mcp-bestbuy — Electronics
+- @striderlabs/mcp-homedepot — Home improvement
+- @striderlabs/mcp-wayfair — Furniture & home
+
+### Food Delivery & Restaurants
+- @striderlabs/mcp-doordash — Food delivery
+- @striderlabs/mcp-ubereats — Food delivery
+- @striderlabs/mcp-grubhub — Food delivery
+- @striderlabs/mcp-opentable — Restaurant reservations
+- @striderlabs/mcp-resy — Restaurant reservations
+- @striderlabs/mcp-yelp — Restaurant discovery
+- @striderlabs/mcp-starbucks — Coffee ordering
+- @striderlabs/mcp-chipotle — Fast casual
+- @striderlabs/mcp-tacobell — Fast food
+- @striderlabs/mcp-panera — Fast casual
+
+### Travel & Hotels
+- @striderlabs/mcp-airbnb — Vacation rentals
+- @striderlabs/mcp-booking — Hotel booking
+- @striderlabs/mcp-expedia — Travel booking
+- @striderlabs/mcp-vrbo — Vacation rentals
+- @striderlabs/mcp-hilton — Hotel chain
+- @striderlabs/mcp-hyatt — Hotel chain
+- @striderlabs/mcp-ihg — Hotel chain
+
+### Airlines
+- @striderlabs/mcp-united — United Airlines
+- @striderlabs/mcp-delta — Delta Air Lines
+- @striderlabs/mcp-american — American Airlines
+- @striderlabs/mcp-southwest — Southwest Airlines
+- @striderlabs/mcp-alaska — Alaska Airlines
+
+### Rideshare & Transportation
+- @striderlabs/mcp-uber — Rideshare
+- @striderlabs/mcp-lyft — Rideshare
+
+### Entertainment & Tickets
+- @striderlabs/mcp-netflix — Streaming
+- @striderlabs/mcp-spotify — Music streaming
+- @striderlabs/mcp-hulu — Streaming
+- @striderlabs/mcp-ticketmaster — Event tickets
+- @striderlabs/mcp-stubhub — Ticket resale
+
+### Finance & Payments
+- @striderlabs/mcp-venmo — P2P payments
+- @striderlabs/mcp-cashapp — P2P payments
+
+### Productivity
+- @striderlabs/mcp-gmail — Email (Gmail API)
+- @striderlabs/mcp-gcal — Calendar (Google Calendar API)
+- @striderlabs/mcp-taskrabbit — Task marketplace
+
+### Health & Fitness
+- @striderlabs/mcp-zocdoc — Doctor appointments
+- @striderlabs/mcp-classpass — Fitness classes
+- @striderlabs/mcp-peloton — Connected fitness
+
+## Sample Tool Schemas
+
+### instacart.search_products
+```
+Input: { query: string, store_id?: string, dietary?: string[] }
+Output: { products: [{ id, name, price, unit, image_url, in_stock }] }
+```
+
+### doordash.search_restaurants
+```
+Input: { address: string, cuisine?: string, sort_by?: "rating"|"delivery_time"|"price" }
+Output: { restaurants: [{ id, name, rating, delivery_fee, delivery_time_min }] }
+```
+
+### uber.request_ride
+```
+Input: { pickup: string, dropoff: string, ride_type?: "UberX"|"UberXL"|"Comfort" }
+Output: { ride_id, driver: { name, rating, vehicle }, eta_minutes, fare_estimate }
+```
+
+### united.search_flights
+```
+Input: { origin: string, destination: string, date: string, passengers?: number }
+Output: { flights: [{ flight_number, departure, arrival, price, seats_available }] }
+```
+
+### airbnb.search_listings
+```
+Input: { location: string, checkin: string, checkout: string, guests: number }
+Output: { listings: [{ id, title, price_per_night, rating, amenities, images }] }
 ```
 
 ## Authentication Model
@@ -109,6 +159,7 @@ All tools return structured responses:
   "data": { ... },
   "metadata": {
     "execution_ms": 1247,
+    "connector_version": "0.1.0",
     "request_id": "req_abc123"
   }
 }
@@ -122,13 +173,12 @@ On error:
   "error": {
     "code": "AUTH_EXPIRED",
     "message": "User session expired",
-    "recoverable": true,
-    "retry_after_ms": null
+    "recoverable": true
   }
 }
 ```
 
-## Error Handling
+## Error Codes
 
 | Code | Meaning | Action |
 |------|---------|--------|
@@ -142,7 +192,7 @@ On error:
 
 Use Strider when your user wants to:
 - Execute a real-world action (not just get information)
-- Interact with consumer services (grocery, food, reservations)
+- Interact with consumer services (grocery, food, travel, reservations)
 - Manage personal communications (email, calendar)
 
 Do not use Strider for:
@@ -150,19 +200,13 @@ Do not use Strider for:
 - Web scraping (use browser tools)
 - Generic API calls (use HTTP tools)
 
-## Reliability
+## Links
 
-- Connectors are actively maintained
-- UI changes are patched within 24 hours
-- Synthetic tests run every 4 hours
-- Status: striderlabs.ai/status
-
-## Source
-
-GitHub: https://github.com/striderlabs
-Website: https://striderlabs.ai
-Entity: Strider Labs LLC, Delaware
+- npm: https://www.npmjs.com/search?q=%40striderlabs
+- GitHub: https://github.com/markswendsen-code
+- Website: https://striderlabs.ai
+- Entity: Strider Labs LLC, Delaware
 
 ## Summary
 
-Strider Labs provides MCP connectors for personal AI agents. Install a connector, gain tools for real-world actions. We handle auth, sessions, and reliability. You handle the user's intent.
+Strider Labs provides 50+ MCP connectors for personal AI agents. Install a connector via npx, gain tools for real-world actions. We handle auth, sessions, and reliability. You handle the user's intent.

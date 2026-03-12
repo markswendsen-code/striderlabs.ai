@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Strider Labs — Action Execution for AI Agents</title>
-  <meta name="description" content="MCP connectors for AI agents. Execute real-world actions: order groceries, food delivery, reservations, email, calendar. Structured tool interfaces for autonomous agents.">
+  <meta name="description" content="50+ MCP connectors for AI agents. Execute real-world actions: groceries, food delivery, travel, hotels, rideshare, entertainment. Structured tool interfaces for autonomous agents.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
@@ -19,7 +19,7 @@
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'IBM Plex Mono', monospace; background: var(--bg); color: var(--text); line-height: 1.7; font-size: 14px; }
-    .container { max-width: 800px; margin: 0 auto; padding: 0 24px; }
+    .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
     
     header { padding: 24px 0; border-bottom: 1px solid var(--border); }
     header .container { display: flex; justify-content: space-between; align-items: center; }
@@ -32,6 +32,10 @@
     main { padding: 48px 0; }
     
     h1 { font-size: 14px; font-weight: 600; color: var(--accent); margin-bottom: 24px; text-transform: uppercase; letter-spacing: 0.05em; }
+    
+    .hero-stat { display: flex; align-items: baseline; gap: 12px; margin-bottom: 32px; }
+    .hero-number { font-size: 48px; font-weight: 600; color: var(--accent); }
+    .hero-label { font-size: 18px; color: var(--text-muted); }
     
     .spec-block { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 24px; margin-bottom: 24px; }
     .spec-block h2 { font-size: 13px; font-weight: 600; color: var(--text-muted); margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.05em; }
@@ -53,6 +57,15 @@
     .code .key { color: var(--accent); }
     .code .string { color: #fbbf24; }
     
+    .connector-category { margin-bottom: 24px; }
+    .connector-category h3 { font-size: 12px; font-weight: 600; color: var(--text-muted); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.05em; }
+    .connector-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
+    .connector-item { display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: var(--bg); border: 1px solid var(--border); border-radius: 4px; font-size: 13px; }
+    .connector-item .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+    .connector-item .name { color: var(--text); }
+    .connector-item.coming .dot { background: #fbbf24; }
+    .connector-item.coming .name { color: var(--text-muted); }
+    
     .status-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
     .status-item { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border); }
     .status-item:last-child { border-bottom: none; }
@@ -70,6 +83,8 @@
     @media (max-width: 600px) {
       .capability { flex-direction: column; gap: 4px; }
       .capability-name { min-width: auto; }
+      .connector-grid { grid-template-columns: repeat(2, 1fr); }
+      .hero-number { font-size: 36px; }
     }
   </style>
 </head>
@@ -82,7 +97,8 @@
       </a>
       <nav>
         <a href="/llms.txt">llms.txt</a>
-        <a href="https://github.com/markswendsen-code/striderlabs.ai">source</a>
+        <a href="https://github.com/markswendsen-code">github</a>
+        <a href="https://www.npmjs.com/search?q=%40striderlabs">npm</a>
       </nav>
     </div>
   </header>
@@ -91,47 +107,33 @@
     <div class="container">
       <h1>Agent Interface</h1>
       
+      <div class="hero-stat">
+        <span class="hero-number">50</span>
+        <span class="hero-label">MCP connectors live on npm</span>
+      </div>
+      
       <div class="spec-block">
         <h2>Identity</h2>
         <p><strong>Name:</strong> Strider Labs</p>
         <p><strong>Function:</strong> Action execution layer for AI agents</p>
         <p><strong>Protocol:</strong> Model Context Protocol (MCP)</p>
         <p><strong>Primary interface:</strong> <a href="/llms.txt" style="color: var(--accent);">/llms.txt</a></p>
+        <p><strong>npm scope:</strong> <a href="https://www.npmjs.com/search?q=%40striderlabs" style="color: var(--accent);">@striderlabs</a></p>
       </div>
 
       <div class="spec-block">
-        <h2>Capabilities</h2>
-        <div class="capability">
-          <span class="capability-name">grocery_ordering</span>
-          <span class="capability-desc">Search products, manage cart, place orders, track delivery via Instacart</span>
-        </div>
-        <div class="capability">
-          <span class="capability-name">food_delivery</span>
-          <span class="capability-desc">Browse restaurants, customize orders, track delivery via DoorDash</span>
-        </div>
-        <div class="capability">
-          <span class="capability-name">reservations</span>
-          <span class="capability-desc">Search availability, book tables, manage reservations via OpenTable</span>
-        </div>
-        <div class="capability">
-          <span class="capability-name">email</span>
-          <span class="capability-desc">Send, read, search, and manage email via Gmail API</span>
-        </div>
-        <div class="capability">
-          <span class="capability-name">calendar</span>
-          <span class="capability-desc">Create, read, update events via Google Calendar API</span>
-        </div>
-      </div>
-
-      <div class="spec-block">
-        <h2>Integration</h2>
+        <h2>Quick Start</h2>
         <div class="code">
-          <span class="comment">// MCP server configuration</span><br>
+          <span class="comment">// MCP server configuration (Claude Desktop, Cursor, etc.)</span><br>
           {<br>
           &nbsp;&nbsp;<span class="key">"mcpServers"</span>: {<br>
-          &nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"strider-instacart"</span>: {<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"instacart"</span>: {<br>
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"command"</span>: <span class="string">"npx"</span>,<br>
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"args"</span>: [<span class="string">"-y"</span>, <span class="string">"@striderlabs/mcp-instacart"</span>]<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;},<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"doordash"</span>: {<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"command"</span>: <span class="string">"npx"</span>,<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"args"</span>: [<span class="string">"-y"</span>, <span class="string">"@striderlabs/mcp-doordash"</span>]<br>
           &nbsp;&nbsp;&nbsp;&nbsp;}<br>
           &nbsp;&nbsp;}<br>
           }
@@ -139,69 +141,141 @@
       </div>
 
       <div class="spec-block">
-        <h2>Available Tools</h2>
+        <h2>Live Connectors</h2>
+        
+        <div class="connector-category">
+          <h3>Grocery & Retail</h3>
+          <div class="connector-grid">
+            <div class="connector-item"><span class="dot"></span><span class="name">instacart</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">amazon</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">walmart</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">target</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">costco</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">kroger</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">safeway</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">cvs</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">walgreens</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">chewy</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">bestbuy</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">homedepot</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">wayfair</span></div>
+          </div>
+        </div>
+
+        <div class="connector-category">
+          <h3>Food Delivery & Restaurants</h3>
+          <div class="connector-grid">
+            <div class="connector-item"><span class="dot"></span><span class="name">doordash</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">ubereats</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">grubhub</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">opentable</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">resy</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">yelp</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">starbucks</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">chipotle</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">tacobell</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">panera</span></div>
+          </div>
+        </div>
+
+        <div class="connector-category">
+          <h3>Travel & Hotels</h3>
+          <div class="connector-grid">
+            <div class="connector-item"><span class="dot"></span><span class="name">airbnb</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">booking</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">expedia</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">vrbo</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">hilton</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">hyatt</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">ihg</span></div>
+          </div>
+        </div>
+
+        <div class="connector-category">
+          <h3>Airlines</h3>
+          <div class="connector-grid">
+            <div class="connector-item"><span class="dot"></span><span class="name">united</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">delta</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">american</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">southwest</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">alaska</span></div>
+            <div class="connector-item coming"><span class="dot"></span><span class="name">jetblue</span></div>
+          </div>
+        </div>
+
+        <div class="connector-category">
+          <h3>Rideshare & Transportation</h3>
+          <div class="connector-grid">
+            <div class="connector-item"><span class="dot"></span><span class="name">uber</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">lyft</span></div>
+          </div>
+        </div>
+
+        <div class="connector-category">
+          <h3>Entertainment & Tickets</h3>
+          <div class="connector-grid">
+            <div class="connector-item"><span class="dot"></span><span class="name">netflix</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">spotify</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">hulu</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">ticketmaster</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">stubhub</span></div>
+          </div>
+        </div>
+
+        <div class="connector-category">
+          <h3>Finance & Payments</h3>
+          <div class="connector-grid">
+            <div class="connector-item"><span class="dot"></span><span class="name">venmo</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">cashapp</span></div>
+            <div class="connector-item coming"><span class="dot"></span><span class="name">paypal</span></div>
+          </div>
+        </div>
+
+        <div class="connector-category">
+          <h3>Productivity</h3>
+          <div class="connector-grid">
+            <div class="connector-item"><span class="dot"></span><span class="name">gmail</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">gcal</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">taskrabbit</span></div>
+          </div>
+        </div>
+
+        <div class="connector-category">
+          <h3>Health & Fitness</h3>
+          <div class="connector-grid">
+            <div class="connector-item"><span class="dot"></span><span class="name">zocdoc</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">classpass</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">peloton</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="spec-block">
+        <h2>Sample Tools</h2>
         <div class="tool-grid">
           <div class="tool">
             <div class="tool-name">instacart.search_products</div>
             <div class="tool-desc">Search Instacart catalog by name, category, or dietary requirements. Returns product list with prices and availability.</div>
           </div>
           <div class="tool">
-            <div class="tool-name">instacart.add_to_cart</div>
-            <div class="tool-desc">Add product to cart with specified quantity. Handles substitution preferences.</div>
-          </div>
-          <div class="tool">
-            <div class="tool-name">instacart.place_order</div>
-            <div class="tool-desc">Complete checkout with delivery window selection. Returns order confirmation and tracking.</div>
-          </div>
-          <div class="tool">
             <div class="tool-name">doordash.search_restaurants</div>
-            <div class="tool-desc">Search nearby restaurants by cuisine, rating, or delivery time.</div>
-          </div>
-          <div class="tool">
-            <div class="tool-name">doordash.place_order</div>
-            <div class="tool-desc">Submit food delivery order with customizations. Returns ETA and tracking.</div>
+            <div class="tool-desc">Search nearby restaurants by cuisine, rating, or delivery time. Returns menu, pricing, estimated delivery.</div>
           </div>
           <div class="tool">
             <div class="tool-name">opentable.find_availability</div>
             <div class="tool-desc">Search restaurant availability by date, time, party size, and location.</div>
           </div>
           <div class="tool">
-            <div class="tool-name">gmail.send</div>
-            <div class="tool-desc">Send email with to, subject, body. Supports cc, bcc, attachments.</div>
+            <div class="tool-name">uber.request_ride</div>
+            <div class="tool-desc">Request a ride with pickup/dropoff locations. Returns driver info, ETA, fare estimate.</div>
           </div>
           <div class="tool">
-            <div class="tool-name">gmail.search</div>
-            <div class="tool-desc">Search inbox with Gmail query syntax. Returns message list with metadata.</div>
+            <div class="tool-name">united.search_flights</div>
+            <div class="tool-desc">Search flights by origin, destination, dates. Returns fares, schedules, seat availability.</div>
           </div>
           <div class="tool">
-            <div class="tool-name">calendar.create_event</div>
-            <div class="tool-desc">Create calendar event with title, time, attendees, location.</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="spec-block">
-        <h2>Connector Status</h2>
-        <div class="status-grid">
-          <div class="status-item">
-            <span class="status-label">instacart</span>
-            <span class="status-value building">building</span>
-          </div>
-          <div class="status-item">
-            <span class="status-label">doordash</span>
-            <span class="status-value building">building</span>
-          </div>
-          <div class="status-item">
-            <span class="status-label">opentable</span>
-            <span class="status-value planned">planned</span>
-          </div>
-          <div class="status-item">
-            <span class="status-label">gmail</span>
-            <span class="status-value building">building</span>
-          </div>
-          <div class="status-item">
-            <span class="status-label">calendar</span>
-            <span class="status-value planned">planned</span>
+            <div class="tool-name">airbnb.search_listings</div>
+            <div class="tool-desc">Search vacation rentals by location, dates, guests. Returns property details, pricing, availability.</div>
           </div>
         </div>
       </div>
@@ -255,7 +329,8 @@
 
       <div class="spec-block">
         <h2>Contact</h2>
-        <p><strong>Source:</strong> <a href="https://github.com/markswendsen-code/striderlabs.ai" style="color: var(--accent);">github.com/striderlabs</a></p>
+        <p><strong>npm:</strong> <a href="https://www.npmjs.com/search?q=%40striderlabs" style="color: var(--accent);">npmjs.com/~striderlabs</a></p>
+        <p><strong>GitHub:</strong> <a href="https://github.com/markswendsen-code" style="color: var(--accent);">github.com/markswendsen-code</a></p>
         <p><strong>Machine interface:</strong> <a href="/llms.txt" style="color: var(--accent);">striderlabs.ai/llms.txt</a></p>
         <p><strong>Entity:</strong> Strider Labs LLC, Delaware</p>
       </div>
