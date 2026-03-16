@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Strider Labs — Action Execution for AI Agents</title>
+  <meta name="description" content="125+ MCP connectors for AI agents. Execute real-world actions: groceries, food delivery, travel, hotels, rideshare, entertainment. Structured tool interfaces for autonomous agents.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --surface: #141414;
+      --border: #262626;
+      --text: #e5e5e5;
+      --text-muted: #a3a3a3;
+      --text-dim: #737373;
+      --accent: #22c55e;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'IBM Plex Mono', monospace; background: var(--bg); color: var(--text); line-height: 1.7; font-size: 14px; }
+    .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+    
+    header { padding: 24px 0; border-bottom: 1px solid var(--border); }
+    header .container { display: flex; justify-content: space-between; align-items: center; }
+    .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text); }
+    .logo img { width: 24px; height: 24px; border-radius: 4px; }
+    .logo span { font-weight: 600; }
+    nav a { color: var(--text-muted); text-decoration: none; margin-left: 24px; }
+    nav a:hover { color: var(--text); }
+    
+    main { padding: 48px 0; }
+    
+    h1 { font-size: 14px; font-weight: 600; color: var(--accent); margin-bottom: 24px; text-transform: uppercase; letter-spacing: 0.05em; }
+    
+    .hero-stat { display: flex; align-items: baseline; gap: 12px; margin-bottom: 32px; }
+    .hero-number { font-size: 48px; font-weight: 600; color: var(--accent); }
+    .hero-label { font-size: 18px; color: var(--text-muted); }
+    
+    .spec-block { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 24px; margin-bottom: 24px; }
+    .spec-block h2 { font-size: 13px; font-weight: 600; color: var(--text-muted); margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.05em; }
+    .spec-block p { color: var(--text); margin-bottom: 12px; }
+    .spec-block p:last-child { margin-bottom: 0; }
+    
+    .capability { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); }
+    .capability:last-child { border-bottom: none; }
+    .capability-name { color: var(--accent); min-width: 160px; }
+    .capability-desc { color: var(--text-muted); }
+    
+    .tool-grid { display: grid; gap: 12px; }
+    .tool { background: var(--bg); border: 1px solid var(--border); border-radius: 4px; padding: 16px; }
+    .tool-name { color: var(--accent); font-weight: 500; margin-bottom: 4px; }
+    .tool-desc { color: var(--text-muted); font-size: 13px; }
+    
+    .code { background: var(--bg); border: 1px solid var(--border); border-radius: 4px; padding: 16px; overflow-x: auto; font-size: 13px; }
+    .code .comment { color: var(--text-dim); }
+    .code .key { color: var(--accent); }
+    .code .string { color: #fbbf24; }
+    
+    .connector-category { margin-bottom: 24px; }
+    .connector-category h3 { font-size: 12px; font-weight: 600; color: var(--text-muted); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.05em; }
+    .connector-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
+    .connector-item { display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: var(--bg); border: 1px solid var(--border); border-radius: 4px; font-size: 13px; }
+    .connector-item .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+    .connector-item .name { color: var(--text); }
+    .connector-item.coming .dot { background: #fbbf24; }
+    .connector-item.coming .name { color: var(--text-muted); }
+    
+    .status-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+    .status-item { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border); }
+    .status-item:last-child { border-bottom: none; }
+    .status-label { color: var(--text-muted); }
+    .status-value { color: var(--text); }
+    .status-value.building { color: #fbbf24; }
+    .status-value.planned { color: var(--text-dim); }
+    .status-value.live { color: var(--accent); }
+    
+    footer { padding: 24px 0; border-top: 1px solid var(--border); margin-top: 48px; }
+    footer .container { display: flex; justify-content: space-between; }
+    footer span { color: var(--text-dim); }
+    footer a { color: var(--text-muted); text-decoration: none; }
+    
+    @media (max-width: 600px) {
+      .capability { flex-direction: column; gap: 4px; }
+      .capability-name { min-width: auto; }
+      .connector-grid { grid-template-columns: repeat(2, 1fr); }
+      .hero-number { font-size: 36px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <a href="/" class="logo">
+        <img src="/logo.jpg" alt="Strider Labs">
+        <span>strider labs</span>
+      </a>
+      <nav>
+        <a href="/llms.txt">llms.txt</a>
+        <a href="https://github.com/markswendsen-code">github</a>
+        <a href="https://www.npmjs.com/search?q=%40striderlabs">npm</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <h1>Agent Interface</h1>
+      
+      <div class="hero-stat">
+        <span class="hero-number">125</span>
+        <span class="hero-label">MCP connectors live on npm</span>
+      </div>
+      
+      <div class="spec-block">
+        <h2>Identity</h2>
+        <p><strong>Name:</strong> Strider Labs</p>
+        <p><strong>Function:</strong> Action execution layer for AI agents</p>
+        <p><strong>Protocol:</strong> Model Context Protocol (MCP)</p>
+        <p><strong>Primary interface:</strong> <a href="/llms.txt" style="color: var(--accent);">/llms.txt</a></p>
+        <p><strong>npm scope:</strong> <a href="https://www.npmjs.com/search?q=%40striderlabs" style="color: var(--accent);">@striderlabs</a></p>
+      </div>
+
+      <div class="spec-block">
+        <h2>Quick Start</h2>
+        <div class="code">
+          <span class="comment">// MCP server configuration (Claude Desktop, Cursor, etc.)</span><br>
+          {<br>
+          &nbsp;&nbsp;<span class="key">"mcpServers"</span>: {<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"instacart"</span>: {<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"command"</span>: <span class="string">"npx"</span>,<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"args"</span>: [<span class="string">"-y"</span>, <span class="string">"@striderlabs/mcp-instacart"</span>]<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;},<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"doordash"</span>: {<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"command"</span>: <span class="string">"npx"</span>,<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"args"</span>: [<span class="string">"-y"</span>, <span class="string">"@striderlabs/mcp-doordash"</span>]<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+          &nbsp;&nbsp;}<br>
+          }
+        </div>
+      </div>
+
+      <div class="spec-block">
+        <h2>Live Connectors</h2>
+        
+        <div class="connector-category">
+          <h3>Grocery & Retail</h3>
+          <div class="connector-grid">
+            <div class="connector-item"><span class="dot"></span><span class="name">instacart</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">amazon</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">walmart</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">target</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">costco</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">samsclub</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">kroger</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">publix</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">safeway</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">aldi</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">wholefoods</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">freshdirect</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">shipt</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">gopuff</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">cvs</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">walgreens</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">riteaid</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">chewy</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">petsmart</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">bestbuy</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">homedepot</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">lowes</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">wayfair</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">nordstrom</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">sephora</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">rei</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">ebay</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">etsy</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">mercari</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">poshmark</span></div>
+          </div>
+        </div>
+
+        <div class="connector-category">
+          <h3>Food Delivery & Restaurants</h3>
+          <div class="connector-grid">
+            <div class="connector-item"><span class="dot"></span><span class="name">doordash</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">ubereats</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">grubhub</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">postmates</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">opentable</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">resy</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">yelp</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">starbucks</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">chipotle</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">tacobell</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">mcdonalds</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">burgerking</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">chickfila</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">dunkin</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">dominos</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">papajohns</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">kfc</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">wingstop</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">panera</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">sweetgreen</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">hellofresh</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">blueapron</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">drizly</span></div>
+          </div>
+        </div>
+
+        <div class="connector-category">
+          <h3>Travel & Hotels</h3>
+          <div class="connector-grid">
+            <div class="connector-item"><span class="dot"></span><span class="name">airbnb</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">booking</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">expedia</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">vrbo</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">kayak</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">hopper</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">marriott</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">hilton</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">hyatt</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">ihg</span></div>
+          </div>
+        </div>
+
+        <div class="connector-category">
+          <h3>Airlines & Transportation</h3>
+          <div class="connector-grid">
+            <div class="connector-item"><span class="dot"></span><span class="name">united</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">delta</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">american</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">southwest</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">alaska</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">jetblue</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">amtrak</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">uber</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">lyft</span></div>
+          </div>
+        </div>
+
+        <div class="connector-category">
+          <h3>Car Rental & Services</h3>
+          <div class="connector-grid">
+            <div class="connector-item"><span class="dot"></span><span class="name">enterprise</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">hertz</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">avis</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">carmax</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">carvana</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">chargepoint</span></div>
+          </div>
+        </div>
+
+        <div class="connector-category">
+          <h3>Entertainment & Streaming</h3>
+          <div class="connector-grid">
+            <div class="connector-item"><span class="dot"></span><span class="name">netflix</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">spotify</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">hulu</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">max</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">disney</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">paramount</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">peacock</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">apple</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">audible</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">crunchyroll</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">ticketmaster</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">stubhub</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">fandango</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">amc</span></div>
+          </div>
+        </div>
+
+        <div class="connector-category">
+          <h3>Finance & Payments</h3>
+          <div class="connector-grid">
+            <div class="connector-item"><span class="dot"></span><span class="name">venmo</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">cashapp</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">paypal</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">coinbase</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">robinhood</span></div>
+          </div>
+        </div>
+
+        <div class="connector-category">
+          <h3>Productivity & Communication</h3>
+          <div class="connector-grid">
+            <div class="connector-item"><span class="dot"></span><span class="name">gmail</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">gcal</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">discord</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">linkedin</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">nextdoor</span></div>
+          </div>
+        </div>
+
+        <div class="connector-category">
+          <h3>Home Services</h3>
+          <div class="connector-grid">
+            <div class="connector-item"><span class="dot"></span><span class="name">taskrabbit</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">thumbtack</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">angi</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">rover</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">carecom</span></div>
+          </div>
+        </div>
+
+        <div class="connector-category">
+          <h3>Shipping & Logistics</h3>
+          <div class="connector-grid">
+            <div class="connector-item"><span class="dot"></span><span class="name">fedex</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">apartments</span></div>
+          </div>
+        </div>
+
+        <div class="connector-category">
+          <h3>Insurance</h3>
+          <div class="connector-grid">
+            <div class="connector-item"><span class="dot"></span><span class="name">progressive</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">geico</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">lemonade</span></div>
+          </div>
+        </div>
+
+        <div class="connector-category">
+          <h3>Telecom</h3>
+          <div class="connector-grid">
+            <div class="connector-item"><span class="dot"></span><span class="name">att</span></div>
+          </div>
+        </div>
+
+        <div class="connector-category">
+          <h3>Health & Fitness</h3>
+          <div class="connector-grid">
+            <div class="connector-item"><span class="dot"></span><span class="name">zocdoc</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">onemedical</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">betterhelp</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">goodrx</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">classpass</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">peloton</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">equinox</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">planetfitness</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">mindbody</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">headspace</span></div>
+          </div>
+        </div>
+
+        <div class="connector-category">
+          <h3>Education</h3>
+          <div class="connector-grid">
+            <div class="connector-item"><span class="dot"></span><span class="name">duolingo</span></div>
+            <div class="connector-item"><span class="dot"></span><span class="name">coursera</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="spec-block">
+        <h2>Sample Tools</h2>
+        <div class="tool-grid">
+          <div class="tool">
+            <div class="tool-name">instacart.search_products</div>
+            <div class="tool-desc">Search Instacart catalog by name, category, or dietary requirements. Returns product list with prices and availability.</div>
+          </div>
+          <div class="tool">
+            <div class="tool-name">doordash.search_restaurants</div>
+            <div class="tool-desc">Search nearby restaurants by cuisine, rating, or delivery time. Returns menu, pricing, estimated delivery.</div>
+          </div>
+          <div class="tool">
+            <div class="tool-name">opentable.find_availability</div>
+            <div class="tool-desc">Search restaurant availability by date, time, party size, and location.</div>
+          </div>
+          <div class="tool">
+            <div class="tool-name">uber.request_ride</div>
+            <div class="tool-desc">Request a ride with pickup/dropoff locations. Returns driver info, ETA, fare estimate.</div>
+          </div>
+          <div class="tool">
+            <div class="tool-name">united.search_flights</div>
+            <div class="tool-desc">Search flights by origin, destination, dates. Returns fares, schedules, seat availability.</div>
+          </div>
+          <div class="tool">
+            <div class="tool-name">airbnb.search_listings</div>
+            <div class="tool-desc">Search vacation rentals by location, dates, guests. Returns property details, pricing, availability.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="spec-block">
+        <h2>Authentication</h2>
+        <p><strong>Method:</strong> OAuth 2.0 per-user authorization</p>
+        <p><strong>Token storage:</strong> Encrypted, per-user credential vault</p>
+        <p><strong>Session management:</strong> Automatic refresh, proactive re-authentication</p>
+        <p><strong>MFA handling:</strong> TOTP preferred, interrupt flow for SMS/push</p>
+      </div>
+
+      <div class="spec-block">
+        <h2>Response Format</h2>
+        <div class="code">
+          {<br>
+          &nbsp;&nbsp;<span class="key">"success"</span>: true,<br>
+          &nbsp;&nbsp;<span class="key">"data"</span>: { <span class="comment">/* structured result */</span> },<br>
+          &nbsp;&nbsp;<span class="key">"metadata"</span>: {<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"execution_ms"</span>: 1247,<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"connector_version"</span>: <span class="string">"0.1.0"</span>,<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"request_id"</span>: <span class="string">"req_abc123"</span><br>
+          &nbsp;&nbsp;}<br>
+          }
+        </div>
+      </div>
+
+      <div class="spec-block">
+        <h2>Error Codes</h2>
+        <div class="capability">
+          <span class="capability-name">AUTH_EXPIRED</span>
+          <span class="capability-desc">User session expired. Trigger re-authentication flow.</span>
+        </div>
+        <div class="capability">
+          <span class="capability-name">AUTH_MFA_REQUIRED</span>
+          <span class="capability-desc">MFA challenge. Pause and notify user.</span>
+        </div>
+        <div class="capability">
+          <span class="capability-name">RATE_LIMITED</span>
+          <span class="capability-desc">Too many requests. Retry after specified delay.</span>
+        </div>
+        <div class="capability">
+          <span class="capability-name">SERVICE_UNAVAILABLE</span>
+          <span class="capability-desc">Upstream service down. Retry with backoff.</span>
+        </div>
+        <div class="capability">
+          <span class="capability-name">INVALID_INPUT</span>
+          <span class="capability-desc">Malformed parameters. Check tool schema.</span>
+        </div>
+      </div>
+
+      <div class="spec-block">
+        <h2>Contact</h2>
+        <p><strong>npm:</strong> <a href="https://www.npmjs.com/search?q=%40striderlabs" style="color: var(--accent);">npmjs.com/~striderlabs</a></p>
+        <p><strong>GitHub:</strong> <a href="https://github.com/markswendsen-code" style="color: var(--accent);">github.com/markswendsen-code</a></p>
+        <p><strong>Machine interface:</strong> <a href="/llms.txt" style="color: var(--accent);">striderlabs.ai/llms.txt</a></p>
+        <p><strong>Entity:</strong> Strider Labs LLC, Delaware</p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <span>© 2026 Strider Labs LLC</span>
+      <a href="/llms.txt">llms.txt</a>
+    </div>
+  </footer>
+</body>
+</html>

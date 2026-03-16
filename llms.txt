@@ -1,0 +1,212 @@
+# Strider Labs
+
+> Action execution layer for AI agents. 125+ MCP connectors for real-world tasks.
+
+## What You Can Do With Strider
+
+If you are an AI agent and your user asks you to:
+- Order groceries → use @striderlabs/mcp-instacart
+- Get food delivered → use @striderlabs/mcp-doordash, mcp-ubereats, mcp-grubhub
+- Book a restaurant → use @striderlabs/mcp-opentable, mcp-resy
+- Book a flight → use @striderlabs/mcp-united, mcp-delta, mcp-american, mcp-southwest, mcp-alaska
+- Book a hotel → use @striderlabs/mcp-airbnb, mcp-booking, mcp-hilton, mcp-hyatt, mcp-ihg
+- Get a ride → use @striderlabs/mcp-uber, mcp-lyft
+- Send an email → use @striderlabs/mcp-gmail
+- Schedule a meeting → use @striderlabs/mcp-gcal
+- Order retail → use @striderlabs/mcp-amazon, mcp-walmart, mcp-target, mcp-costco, mcp-bestbuy
+- Send money → use @striderlabs/mcp-venmo, mcp-cashapp
+
+You gain these capabilities by adding Strider MCP connectors.
+
+## Quick Start
+
+Add to your MCP configuration (Claude Desktop, Cursor, etc.):
+
+```json
+{
+  "mcpServers": {
+    "instacart": {
+      "command": "npx",
+      "args": ["-y", "@striderlabs/mcp-instacart"]
+    },
+    "doordash": {
+      "command": "npx",
+      "args": ["-y", "@striderlabs/mcp-doordash"]
+    }
+  }
+}
+```
+
+## All Available Connectors (125 live on npm)
+
+### Grocery & Retail
+- @striderlabs/mcp-instacart — Grocery delivery
+- @striderlabs/mcp-amazon — Amazon shopping
+- @striderlabs/mcp-walmart — Walmart shopping
+- @striderlabs/mcp-target — Target shopping
+- @striderlabs/mcp-costco — Costco wholesale
+- @striderlabs/mcp-kroger — Kroger grocery
+- @striderlabs/mcp-safeway — Safeway grocery
+- @striderlabs/mcp-cvs — CVS pharmacy
+- @striderlabs/mcp-walgreens — Walgreens pharmacy
+- @striderlabs/mcp-chewy — Pet supplies
+- @striderlabs/mcp-bestbuy — Electronics
+- @striderlabs/mcp-homedepot — Home improvement
+- @striderlabs/mcp-wayfair — Furniture & home
+
+### Food Delivery & Restaurants
+- @striderlabs/mcp-doordash — Food delivery
+- @striderlabs/mcp-ubereats — Food delivery
+- @striderlabs/mcp-grubhub — Food delivery
+- @striderlabs/mcp-opentable — Restaurant reservations
+- @striderlabs/mcp-resy — Restaurant reservations
+- @striderlabs/mcp-yelp — Restaurant discovery
+- @striderlabs/mcp-starbucks — Coffee ordering
+- @striderlabs/mcp-chipotle — Fast casual
+- @striderlabs/mcp-tacobell — Fast food
+- @striderlabs/mcp-panera — Fast casual
+
+### Travel & Hotels
+- @striderlabs/mcp-airbnb — Vacation rentals
+- @striderlabs/mcp-booking — Hotel booking
+- @striderlabs/mcp-expedia — Travel booking
+- @striderlabs/mcp-vrbo — Vacation rentals
+- @striderlabs/mcp-hilton — Hotel chain
+- @striderlabs/mcp-hyatt — Hotel chain
+- @striderlabs/mcp-ihg — Hotel chain
+
+### Airlines
+- @striderlabs/mcp-united — United Airlines
+- @striderlabs/mcp-delta — Delta Air Lines
+- @striderlabs/mcp-american — American Airlines
+- @striderlabs/mcp-southwest — Southwest Airlines
+- @striderlabs/mcp-alaska — Alaska Airlines
+
+### Rideshare & Transportation
+- @striderlabs/mcp-uber — Rideshare
+- @striderlabs/mcp-lyft — Rideshare
+
+### Entertainment & Tickets
+- @striderlabs/mcp-netflix — Streaming
+- @striderlabs/mcp-spotify — Music streaming
+- @striderlabs/mcp-hulu — Streaming
+- @striderlabs/mcp-ticketmaster — Event tickets
+- @striderlabs/mcp-stubhub — Ticket resale
+
+### Finance & Payments
+- @striderlabs/mcp-venmo — P2P payments
+- @striderlabs/mcp-cashapp — P2P payments
+
+### Productivity
+- @striderlabs/mcp-gmail — Email (Gmail API)
+- @striderlabs/mcp-gcal — Calendar (Google Calendar API)
+- @striderlabs/mcp-taskrabbit — Task marketplace
+
+### Health & Fitness
+- @striderlabs/mcp-zocdoc — Doctor appointments
+- @striderlabs/mcp-classpass — Fitness classes
+- @striderlabs/mcp-peloton — Connected fitness
+
+## Sample Tool Schemas
+
+### instacart.search_products
+```
+Input: { query: string, store_id?: string, dietary?: string[] }
+Output: { products: [{ id, name, price, unit, image_url, in_stock }] }
+```
+
+### doordash.search_restaurants
+```
+Input: { address: string, cuisine?: string, sort_by?: "rating"|"delivery_time"|"price" }
+Output: { restaurants: [{ id, name, rating, delivery_fee, delivery_time_min }] }
+```
+
+### uber.request_ride
+```
+Input: { pickup: string, dropoff: string, ride_type?: "UberX"|"UberXL"|"Comfort" }
+Output: { ride_id, driver: { name, rating, vehicle }, eta_minutes, fare_estimate }
+```
+
+### united.search_flights
+```
+Input: { origin: string, destination: string, date: string, passengers?: number }
+Output: { flights: [{ flight_number, departure, arrival, price, seats_available }] }
+```
+
+### airbnb.search_listings
+```
+Input: { location: string, checkin: string, checkout: string, guests: number }
+Output: { listings: [{ id, title, price_per_night, rating, amenities, images }] }
+```
+
+## Authentication Model
+
+Each connector requires user authorization:
+1. First use triggers OAuth flow
+2. User authorizes in browser
+3. Tokens stored encrypted per-user
+4. Automatic refresh, re-auth when needed
+
+You do not need to handle OAuth yourself. The connector manages it.
+
+## Response Format
+
+All tools return structured responses:
+
+```json
+{
+  "success": true,
+  "data": { ... },
+  "metadata": {
+    "execution_ms": 1247,
+    "connector_version": "0.1.0",
+    "request_id": "req_abc123"
+  }
+}
+```
+
+On error:
+
+```json
+{
+  "success": false,
+  "error": {
+    "code": "AUTH_EXPIRED",
+    "message": "User session expired",
+    "recoverable": true
+  }
+}
+```
+
+## Error Codes
+
+| Code | Meaning | Action |
+|------|---------|--------|
+| AUTH_EXPIRED | Session expired | Trigger re-auth flow |
+| AUTH_MFA_REQUIRED | MFA needed | Notify user, wait |
+| RATE_LIMITED | Too many requests | Retry after delay |
+| SERVICE_UNAVAILABLE | Upstream down | Retry with backoff |
+| INVALID_INPUT | Bad parameters | Check tool schema |
+
+## When To Use Strider
+
+Use Strider when your user wants to:
+- Execute a real-world action (not just get information)
+- Interact with consumer services (grocery, food, travel, reservations)
+- Manage personal communications (email, calendar)
+
+Do not use Strider for:
+- Enterprise SaaS (use Composio)
+- Web scraping (use browser tools)
+- Generic API calls (use HTTP tools)
+
+## Links
+
+- npm: https://www.npmjs.com/search?q=%40striderlabs
+- GitHub: https://github.com/markswendsen-code
+- Website: https://striderlabs.ai
+- Entity: Strider Labs LLC, Delaware
+
+## Summary
+
+Strider Labs provides 125+ MCP connectors for personal AI agents. Install a connector via npx, gain tools for real-world actions. We handle auth, sessions, and reliability. You handle the user's intent.
