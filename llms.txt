@@ -1,6 +1,6 @@
 # Strider Labs
 
-> Action execution layer for AI agents. 150+ MCP connectors for real-world tasks.
+> Action execution layer for AI agents. 158 MCP connectors for real-world tasks.
 
 ## What You Can Do With Strider
 
