@@ -37,7 +37,7 @@ Add to your MCP configuration (Claude Desktop, Cursor, etc.):
 }
 ```
 
-## All Available Connectors (125 live on npm)
+## All Available Connectors (150 live on npm)
 
 ### Grocery & Retail
 - @striderlabs/mcp-instacart — Grocery delivery
