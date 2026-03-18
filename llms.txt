@@ -1,20 +1,19 @@
 # Strider Labs
 
-> Action execution layer for AI agents. 158 MCP connectors for real-world tasks.
+> Action execution layer for AI agents. 169 MCP connectors for real-world tasks.
 
 ## What You Can Do With Strider
 
 If you are an AI agent and your user asks you to:
-- Order groceries → use @striderlabs/mcp-instacart
+- Order groceries → use @striderlabs/mcp-instacart, mcp-amazon, mcp-walmart
 - Get food delivered → use @striderlabs/mcp-doordash, mcp-ubereats, mcp-grubhub
 - Book a restaurant → use @striderlabs/mcp-opentable, mcp-resy
-- Book a flight → use @striderlabs/mcp-united, mcp-delta, mcp-american, mcp-southwest, mcp-alaska
-- Book a hotel → use @striderlabs/mcp-airbnb, mcp-booking, mcp-hilton, mcp-hyatt, mcp-ihg
+- Book a flight → use @striderlabs/mcp-united, mcp-delta, mcp-american, mcp-southwest
+- Book a hotel → use @striderlabs/mcp-airbnb, mcp-booking, mcp-hilton, mcp-hyatt
 - Get a ride → use @striderlabs/mcp-uber, mcp-lyft
 - Send an email → use @striderlabs/mcp-gmail
 - Schedule a meeting → use @striderlabs/mcp-gcal
-- Order retail → use @striderlabs/mcp-amazon, mcp-walmart, mcp-target, mcp-costco, mcp-bestbuy
-- Send money → use @striderlabs/mcp-venmo, mcp-cashapp
+- Send money → use @striderlabs/mcp-venmo, mcp-cashapp, mcp-paypal
 
 You gain these capabilities by adding Strider MCP connectors.
 
@@ -37,7 +36,7 @@ Add to your MCP configuration (Claude Desktop, Cursor, etc.):
 }
 ```
 
-## All Available Connectors (150 live on npm)
+## All 169 Connectors
 
 ### Grocery & Retail
 - @striderlabs/mcp-instacart — Grocery delivery
@@ -47,32 +46,96 @@ Add to your MCP configuration (Claude Desktop, Cursor, etc.):
 - @striderlabs/mcp-costco — Costco wholesale
 - @striderlabs/mcp-kroger — Kroger grocery
 - @striderlabs/mcp-safeway — Safeway grocery
+- @striderlabs/mcp-publix — Publix grocery
+- @striderlabs/mcp-wholefoods — Whole Foods
+- @striderlabs/mcp-traderjoes — Trader Joe's
+- @striderlabs/mcp-aldi — Aldi grocery
+- @striderlabs/mcp-bjs — BJ's Wholesale
+- @striderlabs/mcp-samsclub — Sam's Club
+- @striderlabs/mcp-freshdirect — FreshDirect
+
+### Pharmacy & Health
 - @striderlabs/mcp-cvs — CVS pharmacy
 - @striderlabs/mcp-walgreens — Walgreens pharmacy
-- @striderlabs/mcp-chewy — Pet supplies
+- @striderlabs/mcp-riteaid — Rite Aid pharmacy
+- @striderlabs/mcp-goodrx — Prescription savings
+- @striderlabs/mcp-zocdoc — Doctor appointments
+- @striderlabs/mcp-onemedical — Primary care
+- @striderlabs/mcp-teladoc — Telehealth
+- @striderlabs/mcp-betterhelp — Online therapy
+
+### Home & Electronics
 - @striderlabs/mcp-bestbuy — Electronics
 - @striderlabs/mcp-homedepot — Home improvement
+- @striderlabs/mcp-lowes — Home improvement
 - @striderlabs/mcp-wayfair — Furniture & home
+- @striderlabs/mcp-apple — Apple products
+- @striderlabs/mcp-ring — Home security
+- @striderlabs/mcp-simplisafe — Home security
 
-### Food Delivery & Restaurants
+### Pet & Outdoor
+- @striderlabs/mcp-chewy — Pet supplies
+- @striderlabs/mcp-petsmart — Pet supplies
+- @striderlabs/mcp-rover — Pet sitting
+- @striderlabs/mcp-wag — Dog walking
+- @striderlabs/mcp-rei — Outdoor gear
+
+### Fashion & Beauty
+- @striderlabs/mcp-nordstrom — Fashion retail
+- @striderlabs/mcp-gap — Apparel
+- @striderlabs/mcp-hm — Fast fashion
+- @striderlabs/mcp-sephora — Beauty
+- @striderlabs/mcp-poshmark — Resale fashion
+- @striderlabs/mcp-mercari — Marketplace
+- @striderlabs/mcp-etsy — Handmade & vintage
+- @striderlabs/mcp-ebay — Online marketplace
+
+### Food Delivery
 - @striderlabs/mcp-doordash — Food delivery
 - @striderlabs/mcp-ubereats — Food delivery
 - @striderlabs/mcp-grubhub — Food delivery
-- @striderlabs/mcp-opentable — Restaurant reservations
-- @striderlabs/mcp-resy — Restaurant reservations
-- @striderlabs/mcp-yelp — Restaurant discovery
+- @striderlabs/mcp-postmates — Delivery
+- @striderlabs/mcp-gopuff — Convenience delivery
+- @striderlabs/mcp-shipt — Same-day delivery
+
+### Restaurants
+- @striderlabs/mcp-opentable — Reservations
+- @striderlabs/mcp-resy — Reservations
+- @striderlabs/mcp-yelp — Discovery & reviews
 - @striderlabs/mcp-starbucks — Coffee ordering
+- @striderlabs/mcp-dunkin — Coffee & donuts
 - @striderlabs/mcp-chipotle — Fast casual
-- @striderlabs/mcp-tacobell — Fast food
 - @striderlabs/mcp-panera — Fast casual
+- @striderlabs/mcp-sweetgreen — Salads
+- @striderlabs/mcp-shakeshack — Burgers
+- @striderlabs/mcp-mcdonalds — Fast food
+- @striderlabs/mcp-wendys — Fast food
+- @striderlabs/mcp-burgerking — Fast food
+- @striderlabs/mcp-tacobell — Fast food
+- @striderlabs/mcp-chickfila — Fast food
+- @striderlabs/mcp-kfc — Fast food
+- @striderlabs/mcp-dominos — Pizza
+- @striderlabs/mcp-papajohns — Pizza
+- @striderlabs/mcp-subway — Sandwiches
+- @striderlabs/mcp-wingstop — Wings
+- @striderlabs/mcp-buffalowildwings — Wings & sports
+- @striderlabs/mcp-applebees — Casual dining
+
+### Meal Kits & Alcohol
+- @striderlabs/mcp-hellofresh — Meal kits
+- @striderlabs/mcp-blueapron — Meal kits
+- @striderlabs/mcp-drizly — Alcohol delivery
 
 ### Travel & Hotels
 - @striderlabs/mcp-airbnb — Vacation rentals
+- @striderlabs/mcp-vrbo — Vacation rentals
 - @striderlabs/mcp-booking — Hotel booking
 - @striderlabs/mcp-expedia — Travel booking
-- @striderlabs/mcp-vrbo — Vacation rentals
+- @striderlabs/mcp-kayak — Travel search
+- @striderlabs/mcp-hopper — Flight deals
 - @striderlabs/mcp-hilton — Hotel chain
 - @striderlabs/mcp-hyatt — Hotel chain
+- @striderlabs/mcp-marriott — Hotel chain
 - @striderlabs/mcp-ihg — Hotel chain
 
 ### Airlines
@@ -81,31 +144,118 @@ Add to your MCP configuration (Claude Desktop, Cursor, etc.):
 - @striderlabs/mcp-american — American Airlines
 - @striderlabs/mcp-southwest — Southwest Airlines
 - @striderlabs/mcp-alaska — Alaska Airlines
+- @striderlabs/mcp-jetblue — JetBlue Airways
 
-### Rideshare & Transportation
+### Ground Transportation
 - @striderlabs/mcp-uber — Rideshare
 - @striderlabs/mcp-lyft — Rideshare
+- @striderlabs/mcp-amtrak — Train travel
+- @striderlabs/mcp-hertz — Car rental
+- @striderlabs/mcp-enterprise — Car rental
+- @striderlabs/mcp-avis — Car rental
+- @striderlabs/mcp-turo — Peer-to-peer car rental
+- @striderlabs/mcp-zipcar — Car sharing
+- @striderlabs/mcp-uhaul — Moving trucks
+- @striderlabs/mcp-spothero — Parking
 
-### Entertainment & Tickets
+### Entertainment & Streaming
 - @striderlabs/mcp-netflix — Streaming
-- @striderlabs/mcp-spotify — Music streaming
 - @striderlabs/mcp-hulu — Streaming
+- @striderlabs/mcp-disney — Disney+
+- @striderlabs/mcp-max — Max (HBO)
+- @striderlabs/mcp-paramount — Paramount+
+- @striderlabs/mcp-peacock — Peacock
+- @striderlabs/mcp-spotify — Music streaming
+- @striderlabs/mcp-audible — Audiobooks
+- @striderlabs/mcp-youtube — Video
+- @striderlabs/mcp-twitch — Live streaming
+- @striderlabs/mcp-crunchyroll — Anime
+
+### Tickets & Events
 - @striderlabs/mcp-ticketmaster — Event tickets
 - @striderlabs/mcp-stubhub — Ticket resale
+- @striderlabs/mcp-fandango — Movie tickets
+- @striderlabs/mcp-amc — Movie theaters
 
 ### Finance & Payments
 - @striderlabs/mcp-venmo — P2P payments
 - @striderlabs/mcp-cashapp — P2P payments
+- @striderlabs/mcp-paypal — Payments
+- @striderlabs/mcp-chase — Banking
+- @striderlabs/mcp-fidelity — Investing
+- @striderlabs/mcp-robinhood — Trading
+- @striderlabs/mcp-coinbase — Crypto
+
+### Insurance
+- @striderlabs/mcp-geico — Auto insurance
+- @striderlabs/mcp-progressive — Auto insurance
+- @striderlabs/mcp-statefarm — Insurance
+- @striderlabs/mcp-lemonade — Renters insurance
 
 ### Productivity
 - @striderlabs/mcp-gmail — Email (Gmail API)
 - @striderlabs/mcp-gcal — Calendar (Google Calendar API)
-- @striderlabs/mcp-taskrabbit — Task marketplace
+- @striderlabs/mcp-slack — Team messaging
+- @striderlabs/mcp-discord — Community chat
+- @striderlabs/mcp-notion — Notes & docs
+- @striderlabs/mcp-todoist — Task management
+- @striderlabs/mcp-linear — Project management
+- @striderlabs/mcp-airtable — Database
+- @striderlabs/mcp-zoom — Video meetings
+
+### Social
+- @striderlabs/mcp-linkedin — Professional network
+- @striderlabs/mcp-reddit — Social news
+- @striderlabs/mcp-pinterest — Visual discovery
+- @striderlabs/mcp-nextdoor — Local community
 
 ### Health & Fitness
-- @striderlabs/mcp-zocdoc — Doctor appointments
-- @striderlabs/mcp-classpass — Fitness classes
 - @striderlabs/mcp-peloton — Connected fitness
+- @striderlabs/mcp-classpass — Fitness classes
+- @striderlabs/mcp-mindbody — Wellness booking
+- @striderlabs/mcp-equinox — Gym
+- @striderlabs/mcp-orangetheory — Fitness
+- @striderlabs/mcp-planetfitness — Gym
+- @striderlabs/mcp-soulcycle — Cycling
+- @striderlabs/mcp-headspace — Meditation
+- @striderlabs/mcp-calm — Sleep & meditation
+
+### Learning
+- @striderlabs/mcp-coursera — Online courses
+- @striderlabs/mcp-duolingo — Language learning
+
+### Services
+- @striderlabs/mcp-taskrabbit — Task marketplace
+- @striderlabs/mcp-thumbtack — Local services
+- @striderlabs/mcp-angi — Home services
+- @striderlabs/mcp-carecom — Caregiving
+
+### Automotive
+- @striderlabs/mcp-carvana — Car buying
+- @striderlabs/mcp-carmax — Used cars
+- @striderlabs/mcp-gasbuddy — Gas prices
+- @striderlabs/mcp-chargepoint — EV charging
+
+### Real Estate
+- @striderlabs/mcp-zillow — Home search
+- @striderlabs/mcp-redfin — Real estate
+- @striderlabs/mcp-trulia — Rentals & homes
+- @striderlabs/mcp-apartments — Apartment search
+
+### Shipping
+- @striderlabs/mcp-ups — Shipping
+- @striderlabs/mcp-fedex — Shipping
+- @striderlabs/mcp-usps — Postal service
+
+### Telecom
+- @striderlabs/mcp-verizon — Mobile carrier
+- @striderlabs/mcp-att — Mobile carrier
+- @striderlabs/mcp-tmobile — Mobile carrier
+- @striderlabs/mcp-xfinity — Internet/cable
+- @striderlabs/mcp-spectrum — Internet/cable
+
+### Maps
+- @striderlabs/mcp-googlemaps — Maps & directions
 
 ## Sample Tool Schemas
 
@@ -205,8 +355,8 @@ Do not use Strider for:
 - npm: https://www.npmjs.com/search?q=%40striderlabs
 - GitHub: https://github.com/markswendsen-code
 - Website: https://striderlabs.ai
-- Entity: Strider Labs LLC, Delaware
+- MCP Registry: https://registry.modelcontextprotocol.io (search "striderlabs")
 
 ## Summary
 
-Strider Labs provides 125+ MCP connectors for personal AI agents. Install a connector via npx, gain tools for real-world actions. We handle auth, sessions, and reliability. You handle the user's intent.
+Strider Labs provides 169 MCP connectors for personal AI agents. Install via npx, gain tools for real-world actions. We handle auth, sessions, and reliability. You handle the user's intent.
