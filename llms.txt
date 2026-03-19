@@ -355,7 +355,7 @@ Do not use Strider for:
 - npm: https://www.npmjs.com/search?q=%40striderlabs
 - GitHub: https://github.com/markswendsen-code
 - Website: https://striderlabs.ai
-- MCP Registry: https://registry.modelcontextprotocol.io (search "striderlabs")
+- MCP Registry: Coming soon (npm packages ready)
 
 ## Summary
 
