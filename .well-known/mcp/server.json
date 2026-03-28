@@ -1,0 +1,373 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.markswendsen-code/keyhole",
+  "title": "Keyhole — Personal Agent Action Execution",
+  "description": "Keyhole gives personal AI agents the ability to execute real-world actions. Order groceries, book travel, manage finances, find pet services, and more through 15+ consumer service connectors.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Strider Labs",
+    "email": "hello@striderlabs.ai",
+    "url": "https://striderlabs.ai"
+  },
+  "license": "MIT",
+  "homepage": "https://striderlabs.ai",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/markswendsen-code/keyhole"
+  },
+  "remotes": [],
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "@striderlabs/mcp-doordash",
+      "version": "0.1.3",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "DOORDASH_EMAIL",
+          "description": "Your DoorDash account email",
+          "isRequired": true,
+          "isSecret": true
+        },
+        {
+          "name": "DOORDASH_PASSWORD",
+          "description": "Your DoorDash account password",
+          "isRequired": true,
+          "isSecret": true
+        }
+      ]
+    },
+    {
+      "registryType": "npm",
+      "identifier": "@striderlabs/mcp-instacart",
+      "version": "0.1.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "INSTACART_EMAIL",
+          "description": "Your Instacart account email",
+          "isRequired": true,
+          "isSecret": true
+        },
+        {
+          "name": "INSTACART_PASSWORD",
+          "description": "Your Instacart account password",
+          "isRequired": true,
+          "isSecret": true
+        }
+      ]
+    },
+    {
+      "registryType": "npm",
+      "identifier": "@striderlabs/mcp-opentable",
+      "version": "0.1.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "OPENTABLE_EMAIL",
+          "description": "Your OpenTable account email",
+          "isRequired": true,
+          "isSecret": true
+        },
+        {
+          "name": "OPENTABLE_PASSWORD",
+          "description": "Your OpenTable account password",
+          "isRequired": true,
+          "isSecret": true
+        }
+      ]
+    },
+    {
+      "registryType": "npm",
+      "identifier": "@striderlabs/mcp-uber",
+      "version": "0.1.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "UBER_EMAIL",
+          "description": "Your Uber account email",
+          "isRequired": true,
+          "isSecret": true
+        },
+        {
+          "name": "UBER_PASSWORD",
+          "description": "Your Uber account password",
+          "isRequired": true,
+          "isSecret": true
+        }
+      ]
+    },
+    {
+      "registryType": "npm",
+      "identifier": "@striderlabs/mcp-wag",
+      "version": "0.1.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "WAG_EMAIL",
+          "description": "Your Wag account email",
+          "isRequired": true,
+          "isSecret": true
+        },
+        {
+          "name": "WAG_PASSWORD",
+          "description": "Your Wag account password",
+          "isRequired": true,
+          "isSecret": true
+        }
+      ]
+    },
+    {
+      "registryType": "npm",
+      "identifier": "@striderlabs/mcp-rover",
+      "version": "0.1.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "ROVER_EMAIL",
+          "description": "Your Rover account email",
+          "isRequired": true,
+          "isSecret": true
+        },
+        {
+          "name": "ROVER_PASSWORD",
+          "description": "Your Rover account password",
+          "isRequired": true,
+          "isSecret": true
+        }
+      ]
+    },
+    {
+      "registryType": "npm",
+      "identifier": "@striderlabs/mcp-fidelity",
+      "version": "0.1.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "FIDELITY_EMAIL",
+          "description": "Your Fidelity account email",
+          "isRequired": true,
+          "isSecret": true
+        },
+        {
+          "name": "FIDELITY_PASSWORD",
+          "description": "Your Fidelity account password",
+          "isRequired": true,
+          "isSecret": true
+        }
+      ]
+    },
+    {
+      "registryType": "npm",
+      "identifier": "@striderlabs/mcp-grubhub",
+      "version": "0.1.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "GRUBHUB_EMAIL",
+          "description": "Your GrubHub account email",
+          "isRequired": true,
+          "isSecret": true
+        },
+        {
+          "name": "GRUBHUB_PASSWORD",
+          "description": "Your GrubHub account password",
+          "isRequired": true,
+          "isSecret": true
+        }
+      ]
+    },
+    {
+      "registryType": "npm",
+      "identifier": "@striderlabs/mcp-sephora",
+      "version": "1.0.1",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "SEPHORA_EMAIL",
+          "description": "Your Sephora account email",
+          "isRequired": true,
+          "isSecret": true
+        },
+        {
+          "name": "SEPHORA_PASSWORD",
+          "description": "Your Sephora account password",
+          "isRequired": true,
+          "isSecret": true
+        }
+      ]
+    },
+    {
+      "registryType": "npm",
+      "identifier": "@striderlabs/mcp-airbnb",
+      "version": "1.0.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "AIRBNB_EMAIL",
+          "description": "Your Airbnb account email",
+          "isRequired": true,
+          "isSecret": true
+        },
+        {
+          "name": "AIRBNB_PASSWORD",
+          "description": "Your Airbnb account password",
+          "isRequired": true,
+          "isSecret": true
+        }
+      ]
+    },
+    {
+      "registryType": "npm",
+      "identifier": "@striderlabs/mcp-lemonade",
+      "version": "1.0.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "LEMONADE_EMAIL",
+          "description": "Your Lemonade insurance account email",
+          "isRequired": true,
+          "isSecret": true
+        },
+        {
+          "name": "LEMONADE_PASSWORD",
+          "description": "Your Lemonade insurance account password",
+          "isRequired": true,
+          "isSecret": true
+        }
+      ]
+    },
+    {
+      "registryType": "npm",
+      "identifier": "@striderlabs/mcp-postmates",
+      "version": "1.0.1",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "POSTMATES_EMAIL",
+          "description": "Your Postmates account email",
+          "isRequired": true,
+          "isSecret": true
+        },
+        {
+          "name": "POSTMATES_PASSWORD",
+          "description": "Your Postmates account password",
+          "isRequired": true,
+          "isSecret": true
+        }
+      ]
+    }
+  ],
+  "tools": [
+    {
+      "name": "search_restaurants",
+      "description": "Search for restaurants by location and cuisine type"
+    },
+    {
+      "name": "get_menu",
+      "description": "Get menu items, prices, and details for a restaurant"
+    },
+    {
+      "name": "place_order",
+      "description": "Place a food delivery or restaurant reservation order"
+    },
+    {
+      "name": "track_order",
+      "description": "Track the status of a current order"
+    },
+    {
+      "name": "search_groceries",
+      "description": "Search for grocery items by store and category"
+    },
+    {
+      "name": "add_to_cart",
+      "description": "Add items to shopping cart"
+    },
+    {
+      "name": "checkout",
+      "description": "Complete purchase and arrange delivery"
+    },
+    {
+      "name": "search_pet_services",
+      "description": "Search for dog walkers, pet sitters, and pet services"
+    },
+    {
+      "name": "book_pet_service",
+      "description": "Book a dog walker or pet sitting appointment"
+    },
+    {
+      "name": "search_rides",
+      "description": "Search for available rides and fare estimates"
+    },
+    {
+      "name": "request_ride",
+      "description": "Request a ride (UberX, Uber Eats delivery, etc.)"
+    },
+    {
+      "name": "search_hotels",
+      "description": "Search for hotels and check availability"
+    },
+    {
+      "name": "book_hotel",
+      "description": "Book a hotel reservation"
+    },
+    {
+      "name": "search_flights",
+      "description": "Search for flights by origin, destination, and dates"
+    },
+    {
+      "name": "book_flight",
+      "description": "Book a flight"
+    },
+    {
+      "name": "check_account_balance",
+      "description": "Check account balance for financial institutions"
+    },
+    {
+      "name": "transfer_funds",
+      "description": "Transfer funds between accounts"
+    },
+    {
+      "name": "pay_bill",
+      "description": "Pay a bill or insurance premium"
+    }
+  ],
+  "tags": [
+    "commerce",
+    "food-delivery",
+    "groceries",
+    "travel",
+    "transportation",
+    "pet-care",
+    "finance",
+    "ai-agents",
+    "personal-assistant"
+  ],
+  "capabilities": {
+    "canBeCalled": true
+  }
+}
