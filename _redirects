@@ -1,0 +1,5 @@
+# MCP Server Discovery
+/.well-known/mcp/server.json /.well-known/mcp/server.json 200
+
+# LLMs Manifest
+/llms.txt /llms.txt 200
