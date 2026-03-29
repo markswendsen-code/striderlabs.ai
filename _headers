@@ -1,0 +1,7 @@
+[/.well-known/mcp/*]
+  Content-Type = application/json
+  Cache-Control = public, max-age=3600
+
+[/llms.txt]
+  Content-Type = text/plain
+  Cache-Control = public, max-age=3600
